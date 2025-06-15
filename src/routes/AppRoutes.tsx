@@ -3,9 +3,9 @@ import MainLayout from '../layouts/MainLayout'
 
 import Home from '../pages/Home'
 import Events from '../pages/Events'
-import Groups from '../pages/Groups'
-import Giving from '../pages/Giving'
-import Sermons from '../pages/Sermons'
+import Groups from '../pages/SmallGroups'
+import Giving from '../pages/Give'
+import Sermons from '../pages/Messages'
 import Contact from '../pages/Contact'
 import About from '../pages/About'
 
