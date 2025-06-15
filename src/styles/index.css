@@ -1,0 +1,205 @@
+/* src/styles/index.css */
+
+/* 1. Load your Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+/* 2. Boot Tailwind and its official plugins */
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+/* 3. Design tokens in one place */
+@theme {
+  /* Fonts */
+  --font-display: "Playfair Display", serif;
+  --font-body: "Source Sans Pro", sans-serif;
+
+  /* Colors */
+  --color-white: #FFFFFF;
+  --color-off-white: #F9FAFB;
+  --color-dark-blue: #3B5998;
+  --color-light-blue: #2563EB;
+  --color-pale-blue: #bfdbfe;
+  --color-off-blue: #dbeafe;
+  --color-black-footer: #111827;
+  --color-input-border: #01d5db;
+  --color-gray-border: #E5E7EB;
+  --color-gray-categories: #6B7280;
+  --color-gray-body: #4B5563;
+  --color-gray-body-footer: #9ca3af;
+  --color-off-black: #1F2937;
+  --color-red: #e63946;
+  --color-green: #16A34A;
+  --color-pink: #DB2777;
+  --color-purple: #9333EA;
+  --color-orange: #EA580C;
+  --color-yellow: #CA8A04;
+
+  /* Font Sizes */
+  --font-size-page-header: 30px;
+  --font-size-content-header: 24px;
+  --font-size-section-header: 14px;
+  --font-size-page-subheader: 18px;
+  --font-size-section-body: 14px;
+  --font-size-text-link: 14px;
+  --font-size-nav-item: 14px;
+  --font-size-footer-header: 14px;
+  --font-size-footer-link: 12px;
+  --font-size-footer-copyright: 12px;
+  --font-size-tab-header: 12px;
+  --font-size-section-subheader: 18px;
+  --font-size-category-tag: 12px;
+
+  /* Border radii */
+  --radius-sm: 4px;
+  --radius-default: 6px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+}
+
+/* 4. Global default font stacks */
+* {
+  font-family: var(--font-body);
+}
+h1, h2, h3, h4, h5, h6, button {
+  font-family: var(--font-display);
+}
+
+/* 5. Component classes, defined once with CSS and tokens */
+@layer components {
+  .page-header {
+    font-size: var(--font-size-page-header);
+    font-weight: 700;
+    color: var(--color-white);
+    line-height: 1.2;
+  }
+  @media (min-width: 1024px) {
+    .page-header {
+      font-size: 60px;
+    }
+  }
+
+  .content-header {
+    font-size: var(--font-size-content-header);
+    font-weight: 700;
+    color: var(--color-off-black);
+  }
+  @media (min-width: 1024px) {
+    .content-header {
+      font-size: 30px;
+    }
+  }
+
+  .section-header {
+    font-size: var(--font-size-section-header);
+    font-weight: 700;
+    color: var(--color-off-black);
+  }
+  @media (min-width: 1024px) {
+    .section-header {
+      font-size: 30px;
+    }
+  }
+
+  .page-subheader {
+    font-size: var(--font-size-page-subheader);
+    color: var(--color-off-white);
+  }
+  @media (min-width: 1024px) {
+    .page-subheader {
+      font-size: 20px;
+    }
+  }
+
+  .section-body {
+    font-size: var(--font-size-section-body);
+    color: var(--color-gray-body);
+    line-height: 1.6;
+  }
+  @media (min-width: 1024px) {
+    .section-body {
+      font-size: 16px;
+    }
+  }
+
+  .text-link {
+    font-size: var(--font-size-text-link);
+    font-weight: 600;
+    color: var(--color-dark-blue);
+    text-decoration: underline;
+  }
+  @media (min-width: 1024px) {
+    .text-link {
+      font-size: 16px;
+    }
+  }
+
+  .nav-item {
+    font-size: var(--font-size-nav-item);
+    font-weight: 600;
+    color: var(--color-gray-body);
+  }
+
+  .footer-header {
+    font-size: var(--font-size-footer-header);
+    font-weight: 700;
+    color: var(--color-white);
+  }
+  @media (min-width: 1024px) {
+    .footer-header {
+      font-size: 18px;
+    }
+  }
+
+  .footer-link {
+    font-size: var(--font-size-footer-link);
+    color: var(--color-gray-body-footer);
+  }
+  @media (min-width: 1024px) {
+    .footer-link {
+      font-size: 16px;
+    }
+  }
+
+  .footer-copyright {
+    font-size: var(--font-size-footer-copyright);
+    color: var(--color-gray-body-footer);
+  }
+  @media (min-width: 1024px) {
+    .footer-copyright {
+      font-size: 14px;
+    }
+  }
+
+  .tab-header {
+    font-size: var(--font-size-tab-header);
+    font-weight: 600;
+    color: var(--color-gray-body);
+  }
+  @media (min-width: 1024px) {
+    .tab-header {
+      font-size: 16px;
+    }
+  }
+
+  .section-subheader {
+    font-size: var(--font-size-section-subheader);
+    font-weight: 700;
+    color: var(--color-off-black);
+  }
+  @media (min-width: 1024px) {
+    .section-subheader {
+      font-size: 24px;
+    }
+  }
+
+  .category-tag {
+    font-size: var(--font-size-category-tag);
+    color: var(--color-gray-categories);
+  }
+  @media (min-width: 1024px) {
+    .category-tag {
+      font-size: 14px;
+    }
+  }
+}
