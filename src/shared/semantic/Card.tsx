@@ -8,35 +8,56 @@ import React from 'react';
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The content to be displayed inside the card. */
   children: React.ReactNode;
+  /** The direction of the accent border. */
+  accent?: 'left' | 'right' | 'top' | 'bottom';
+  /** The color of the accent border, corresponding to a theme color. */
+  accentColor?: 'primary' | 'secondary' | 'tertiary' | 'success' | 'error';
 }
 
 /**
  * Card is a foundational UI component used to group related content.
- * It provides a distinct, bordered, and shadowed container.
- * It is unopinionated about its internal layout, allowing for flexible composition.
- * The `overflow-hidden` class is crucial for ensuring that child elements
- * (like a top-aligned image) have their corners clipped to match the card's border radius.
+ * It is unopinionated about its background color and can feature an optional accent border.
  *
  * @example
- * <Card>
- * <img src="..." alt="Card image" />
- * <div className="p-6">
+ * <Card className="bg-white p-4" accent="left" accentColor="primary">
  * <h3>Card Title</h3>
- * <p>Some descriptive text for the card.</p>
- * </div>
+ * <p>Card content...</p>
  * </Card>
  */
 const Card: React.FC<CardProps> = ({
   children,
   className,
+  accent,
+  accentColor = 'primary',
   ...props
 }) => {
-  // Base styles using semantic tokens from your index.css
-  const baseStyles = 'bg-white border border-border-primary rounded-lg shadow-md overflow-hidden';
+  // Base styles provide the foundational card shell.
+  const baseStyles = 'w-full p-8 space-y-4 rounded-lg shadow-md overflow-hidden';
 
-  // Combine all classes
+  // Accent border styles are applied conditionally.
+  const accentStyles = {
+    left: 'border-l-4',
+    right: 'border-r-4',
+    top: 'border-t-4',
+    bottom: 'border-b-4',
+  };
+
+  // Accent color styles map to your theme.
+  const accentColorStyles = {
+    primary: 'border-primary-base',
+    secondary: 'border-text-secondary',
+    tertiary: 'border-text-tertiary',
+    success: 'border-status-success',
+    error: 'border-status-error',
+
+  };
+
   const classes = [
     baseStyles,
+    // Add a default border unless an accent is specified.
+    !accent && 'border border-border-primary',
+    accent && accentStyles[accent],
+    accent && accentColor && accentColorStyles[accentColor],
     className,
   ]
     .filter(Boolean)

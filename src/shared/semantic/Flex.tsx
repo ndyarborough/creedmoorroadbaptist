@@ -49,6 +49,7 @@ export const Flex: React.FC<FlexProps> = ({
     `justify-${justify}`,
     `items-${items}`,
     `flex-${wrap}`,
+    'w-full',
     gap ? `gap-${gap}` : ``,
     className,
   ]

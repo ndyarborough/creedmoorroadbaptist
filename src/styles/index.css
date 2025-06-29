@@ -1,16 +1,14 @@
 /* src/styles/index.css */
 
 /* 1. Load your Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@400;600;700&display=swap");
 
 /* 2. Boot Tailwind and its official plugins */
 @import "tailwindcss";
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
-
 img {
-  
 }
 /*
  * =================================================================================================
@@ -30,39 +28,40 @@ img {
   --font-body: "Source Sans Pro", sans-serif;
 
   /* Base Colors */
-  --color-white: #FFFFFF;
+  --color-white: #ffffff;
   --color-black: #000000;
 
-  --color-primary-dark: #3B5998;      /* Dark Blue */
-  --color-primary-base: #2563EB;      /* Light Blue */
-  --color-primary-light: #bfdbfe;     /* Pale Blue */
-  --color-primary-ultralight: #dbeafe;/* Off Blue */
+  --color-primary-dark: #3b5998; /* Dark Blue */
+  --color-primary-base: #2563eb; /* Light Blue */
+  --color-primary-light: #bfdbfe; /* Pale Blue */
+  --color-primary-ultralight: #dbeafe; /* Off Blue */
 
-  --color-text-primary: #1F2937;      /* Off Black */
-  --color-text-secondary: #4B5563;    /* Gray Body */
-  --color-text-muted: #6B7280;        /* Gray Categories */
-  --color-text-inverted: #FFFFFF;
+  --color-text-primary: #1f2937; /* Off Black */
+  --color-text-secondary: #4b5563; /* Gray Body */
+  --color-text-tertiary: #EAB308; /* Gray Body */
+  --color-text-muted: #6b7280; /* Gray Categories */
+  --color-text-inverted: #ffffff;
 
-  --color-off-white: #D1D5DB;
+  --color-off-white: #d1d5db;
 
-  --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #F9FAFB;      /* Off White */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f9fafb; /* Off White */
   --color-bg-footer: #111827; /* Black Footer */
-  
-   --color-bg-section: #F3F4F6; /* Section Background off-white */
 
-  --color-border-primary: #E5E7EB;    /* Gray Border */
+  --color-bg-section: #f3f4f6; /* Section Background off-white */
+
+  --color-border-primary: #e5e7eb; /* Gray Border */
   --color-border-input: #01d5db;
 
-  --color-text-footer: #9ca3af;       /* Gray Body Footer */
+  --color-text-footer: #9ca3af; /* Gray Body Footer */
 
   /* Status & Category Colors */
-  --color-status-success: #16A34A;    /* Green */
-  --color-status-error: #e63946;      /* Red */
-  --color-category-pink: #DB2777;
-  --color-category-purple: #9333EA;
-  --color-category-orange: #EA580C;
-  --color-category-yellow: #CA8A04;
+  --color-status-success: #16a34a; /* Green */
+  --color-status-error: #e63946; /* Red */
+  --color-category-pink: #db2777;
+  --color-category-purple: #9333ea;
+  --color-category-orange: #ea580c;
+  --color-category-yellow: #ca8a04;
 
   /* Font Sizes (using a t-shirt sizing scale) */
   --font-size-xs: 12px;
@@ -104,7 +103,21 @@ img {
     font-weight: bold;
     line-height: 1.2;
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+
+  .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  }
+
+  .bg-gradient-primary {
+    background-image: linear-gradient(
+      to right,
+      var(--color-primary-dark),
+      var(--color-primary-base)
+    );
+  }
+
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .page-header {
       font-size: var(--font-size-6xl);
     }
@@ -114,9 +127,10 @@ img {
     font-size: var(--font-size-3xl);
     font-family: var(--font-display);
     font-weight: bold;
-    color: var(--color-text-primary)
+    color: var(--color-text-primary);
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .content-header {
       font-size: var(--font-size-4xl);
     }
@@ -125,9 +139,10 @@ img {
   .section-header {
     font-size: var(--font-size-xl);
     font-family: var(--font-display);
-    color: var((--color-text-primary))
+    color: var((--color-text-primary));
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .section-header {
       font-size: var(--font-size-2xl);
     }
@@ -136,7 +151,8 @@ img {
   .section-subheader {
     font-size: var(--font-size-lg);
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .section-subheader {
       font-size: var(--font-size-xl);
     }
@@ -148,7 +164,8 @@ img {
     color: var(--color-border-primary);
     font-weight: 400;
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .page-subheader {
       font-size: var(--font-size-xl);
     }
@@ -160,7 +177,8 @@ img {
     color: var(--color-text-secondary);
     line-height: 1.6;
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .section-body {
       font-size: var(--font-size-base);
     }
@@ -175,7 +193,8 @@ img {
   .text-link:hover {
     text-decoration: underline;
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .text-link {
       font-size: var(--font-size-base);
     }
@@ -187,7 +206,8 @@ img {
     font-weight: 600;
     color: var(--color-text-secondary);
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .nav-item {
       font-size: var(--font-size-base);
     }
@@ -197,7 +217,8 @@ img {
     font-size: var(--font-size-base);
     color: var(--color-text-inverted);
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .footer-header {
       font-size: var(--font-size-lg);
     }
@@ -207,7 +228,8 @@ img {
     font-size: var(--font-size-xs);
     color: var(--color-text-footer);
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .footer-link {
       font-size: var(--font-size-sm);
     }
@@ -217,7 +239,8 @@ img {
     font-size: var(--font-size-xs);
     color: var(--color-text-footer);
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .footer-copyright {
       font-size: var(--font-size-sm);
     }
@@ -227,7 +250,8 @@ img {
     font-size: var(--font-size-xs);
     font-weight: 600;
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .tab-header {
       font-size: var(--font-size-base);
     }
@@ -239,7 +263,8 @@ img {
     color: var(--color-text-muted);
     text-transform: uppercase;
   }
-  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+  @media (min-width: var(--screen-lg)) {
+    /* CORRECTED */
     .category-tag {
       font-size: var(--font-size-sm);
     }

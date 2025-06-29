@@ -11,7 +11,7 @@ interface IconContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The background color variant, mapping to your theme colors. */
   variant?: 'primary' | 'secondary' | 'success' | 'error' | 'muted';
   /** The size of the container. */
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   /** The shape of the container. */
   shape?: 'rounded' | 'circle';
 }
@@ -43,6 +43,7 @@ const IconContainer: React.FC<IconContainerProps> = ({
     sm: 'w-8 h-8',   // 32px
     md: 'w-12 h-12', // 48px
     lg: 'w-16 h-16', // 64px
+    xl: 'w-24 h-24', // 96px
   };
 
   // Shape-specific styles

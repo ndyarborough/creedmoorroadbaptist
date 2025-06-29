@@ -17,7 +17,7 @@ export default function Navbar() {
   ]
 
   return (
-    <nav className="bg-off-white border-b border-gray-border">
+    <nav className="bg-bg-primary border-b border-gray-border">
       <div className="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo + title/tagline */}

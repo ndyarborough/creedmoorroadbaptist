@@ -41,6 +41,7 @@ export const Grid: React.FC<GridProps> = ({
     cols ? `grid-cols-${cols}` : '',
     rows ? `grid-rows-${rows}` : '',
     gap > 0 ? `gap-${gap}` : '',
+    'w-full',
     className,
   ]
     .filter(Boolean)

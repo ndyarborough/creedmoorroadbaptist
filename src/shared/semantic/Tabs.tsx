@@ -25,7 +25,7 @@ export const Tabs: React.FC<TabsProps> = ({ children, defaultIndex = 0 }) => {
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
   return (
     <TabsContext.Provider value={{ activeIndex, setActiveIndex }}>
-      <div>{children}</div>
+      <div className='flex flex-col w-full'>{children}</div>
     </TabsContext.Provider>
   );
 };
@@ -38,7 +38,7 @@ interface TabListProps {
 
 export const TabList: React.FC<TabListProps> = ({ children }) => {
   return (
-    <div className="flex border-b border-border-primary" role="tablist">
+    <div className="flex border-b border-border-primary mx-auto" role="tablist">
       {children}
     </div>
   );
@@ -87,16 +87,18 @@ export const Tab: React.FC<TabProps> = ({ children, index }) => {
 // --- 5. TabPanels: The container for the content panels ---
 interface TabPanelsProps {
   children: React.ReactNode[];
+  className?: string;
 }
+ 
 
-export const TabPanels: React.FC<TabPanelsProps> = ({ children }) => {
+export const TabPanels: React.FC<TabPanelsProps> = ({ children, className }) => {
     const context = useContext(TabsContext);
     if (!context) {
         throw new Error('TabPanels must be used within a Tabs component.');
     }
 
     return (
-        <div className="py-6">
+        <div className={`py-6 ${className}`}>
             {children[context.activeIndex]}
         </div>
     );

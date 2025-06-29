@@ -7,7 +7,7 @@ import React from 'react';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
   children: React.ReactNode;
   /** Visual style of the button */
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'white' | 'transparent';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'white' | 'transparent' | 'danger';
   /** Size of the button */
   size?: 'sm' | 'md' | 'lg';
   /** Renders the component as a link or a button */
@@ -42,6 +42,7 @@ const Button: React.FC<ButtonProps> = ({
     outline: 'border border-border-primary bg-transparent text-text-primary hover:bg-bg-secondary focus:ring-primary-base',
     ghost: 'bg-transparent text-text-primary hover:bg-bg-secondary focus:ring-primary-base',
     white: 'bg-bg-primary text-bg-footer',
+    danger: 'bg-status-error text-bg-primary',
     transparent: 'bg-transparent text-bg-primary border-1 border-bg-primary',
   };
 
