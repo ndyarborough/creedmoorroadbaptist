@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { doc, getDoc } from 'firebase/firestore'
 import { ref, getDownloadURL } from 'firebase/storage'
-import { db, storage } from '../lib/firebase'
+import { db, storage } from '../../lib/firebase'
 
 interface PageHeaderData {
   header: string
@@ -12,7 +12,6 @@ interface PageHeaderData {
 
 export function usePageHeader(pageId: string) {
   const [data, setData] = useState<PageHeaderData|null>(null)
-console.log(pageId)
   useEffect(() => {
     async function load() {
       const snap = await getDoc(doc(db, 'pageHeaders', pageId))
@@ -29,6 +28,7 @@ console.log(pageId)
       const url = await getDownloadURL(ref(storage, imagePath))
       setData({ header, subheader, imageUrl: url })
     }
+    // setData({header: 'Hey', subheader: 'hey', imageUrl: ''})
     load()
   }, [pageId])
 

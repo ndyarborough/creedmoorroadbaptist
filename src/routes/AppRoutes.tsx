@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom'
-import MainLayout from '../layouts/MainLayout'
 
 import Home from '../pages/Home'
 import Events from '../pages/Events'
@@ -8,6 +7,7 @@ import Giving from '../pages/Give'
 import Sermons from '../pages/Messages'
 import Contact from '../pages/Contact'
 import About from '../pages/About'
+import MainLayout from '../shared/layouts/MainLayout'
 
 const AppRoutes = () => (
   <Routes>

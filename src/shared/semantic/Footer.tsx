@@ -4,7 +4,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube'
 
 export default function Footer() {
     return (
-        <footer className="flex flex-col bg-black-footer text-center pt-8">
+        <footer className="flex flex-col bg-bg-footer text-center pt-8">
             <div className='md:flex md:justify-around md:pb-8'>
                 {/* Brand */}
                 <div className="footer-brand space-y-2">
@@ -16,10 +16,10 @@ export default function Footer() {
                     {/* Social Icons */}
                     <div className="footer-social py-2">
                         <a href="https://facebook.com/YourPage" aria-label="Facebook">
-                            <FacebookIcon fontSize="large" className='text-gray-body-footer' />
+                            <FacebookIcon fontSize="large" className='text-text-footer' />
                         </a>
                         <a href="https://youtube.com/YourChannel" aria-label="YouTube">
-                            <YouTubeIcon fontSize="large" className='text-gray-body-footer' />
+                            <YouTubeIcon fontSize="large" className='text-text-footer' />
                         </a>
                     </div>
                 </div>

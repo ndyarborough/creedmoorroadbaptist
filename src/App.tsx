@@ -1,7 +1,5 @@
 // src/App.tsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import MainLayout from './layouts/MainLayout'
-import PageLayout from './layouts/PageLayout'
 
 import Home        from './pages/Home'
 import Events      from './pages/Events'
@@ -10,7 +8,7 @@ import SmallGroups from './pages/SmallGroups'
 import Give        from './pages/Give'
 import Messages    from './pages/Messages'
 import Contact     from './pages/Contact'
-
+import MainLayout from './shared/layouts/MainLayout'
 function App() {
   return (
     <BrowserRouter>
@@ -20,9 +18,7 @@ function App() {
           <Route
             index
             element={
-              <PageLayout pageId="home">
                 <Home />
-              </PageLayout>
             }
           />
 
@@ -30,9 +26,7 @@ function App() {
           <Route
             path="events"
             element={
-              <PageLayout pageId="events">
                 <Events />
-              </PageLayout>
             }
           />
 
@@ -40,9 +34,7 @@ function App() {
           <Route
             path="about"
             element={
-              <PageLayout pageId="about">
                 <About />
-              </PageLayout>
             }
           />
 
@@ -50,9 +42,7 @@ function App() {
           <Route
             path="smallGroups"
             element={
-              <PageLayout pageId="smallGroups">
                 <SmallGroups />
-              </PageLayout>
             }
           />
 
@@ -60,9 +50,7 @@ function App() {
           <Route
             path="give"
             element={
-              <PageLayout pageId="give">
                 <Give />
-              </PageLayout>
             }
           />
 
@@ -70,9 +58,7 @@ function App() {
           <Route
             path="messages"
             element={
-              <PageLayout pageId="messages">
                 <Messages />
-              </PageLayout>
             }
           />
 
@@ -80,9 +66,7 @@ function App() {
           <Route
             path="contact"
             element={
-              <PageLayout pageId="contact">
                 <Contact />
-              </PageLayout>
             }
           />
         </Route>

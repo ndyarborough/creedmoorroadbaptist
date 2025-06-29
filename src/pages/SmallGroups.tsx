@@ -1,10 +1,14 @@
 
 
+import PageLayout from "../shared/layouts/PageLayout";
+
 const SmallGroups = () => {
     return (
-        <div>  
-            Small Groups
-        </div>
+        <PageLayout pageId="smallGroups">
+            <div>  
+                Small Groups
+            </div>
+        </PageLayout>
     )
 }
 

@@ -1,10 +1,14 @@
 
 
+import PageLayout from "../shared/layouts/PageLayout";
+
 const Messages = () => {
     return (
-        <div>  
-            Messages
-        </div>
+        <PageLayout pageId="messages">
+            <div>  
+                Messages
+            </div>
+        </PageLayout>
     )
 }
 

@@ -1,10 +1,14 @@
 
 
+import PageLayout from "../shared/layouts/PageLayout";
+
 const Contact = () => {
     return (
-        <div>  
-            Contact
-        </div>
+        <PageLayout pageId="contact">
+            <div>  
+                Contact
+            </div>
+        </PageLayout>
     )
 }
 

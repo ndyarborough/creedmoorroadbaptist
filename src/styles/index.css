@@ -8,47 +8,73 @@
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
-/* 3. Design tokens in one place */
+
+img {
+  
+}
+/*
+ * =================================================================================================
+ * 3. DESIGN TOKENS
+ *
+ * Centralized place for all design system variables as CSS custom properties.
+ * =================================================================================================
+ */
 @theme {
+  /* Screens (for responsive design) */
+  --screen-md: 768px;
+  --screen-lg: 1024px;
+  --screen-xl: 1280px;
+
   /* Fonts */
   --font-display: "Playfair Display", serif;
   --font-body: "Source Sans Pro", sans-serif;
 
-  /* Colors */
+  /* Base Colors */
   --color-white: #FFFFFF;
-  --color-off-white: #F9FAFB;
-  --color-dark-blue: #3B5998;
-  --color-light-blue: #2563EB;
-  --color-pale-blue: #bfdbfe;
-  --color-off-blue: #dbeafe;
-  --color-black-footer: #111827;
-  --color-input-border: #01d5db;
-  --color-gray-border: #E5E7EB;
-  --color-gray-categories: #6B7280;
-  --color-gray-body: #4B5563;
-  --color-gray-body-footer: #9ca3af;
-  --color-off-black: #1F2937;
-  --color-red: #e63946;
-  --color-green: #16A34A;
-  --color-pink: #DB2777;
-  --color-purple: #9333EA;
-  --color-orange: #EA580C;
-  --color-yellow: #CA8A04;
+  --color-black: #000000;
 
-  /* Font Sizes */
-  --font-size-page-header: 30px;
-  --font-size-content-header: 24px;
-  --font-size-section-header: 14px;
-  --font-size-page-subheader: 18px;
-  --font-size-section-body: 14px;
-  --font-size-text-link: 14px;
-  --font-size-nav-item: 14px;
-  --font-size-footer-header: 14px;
-  --font-size-footer-link: 12px;
-  --font-size-footer-copyright: 12px;
-  --font-size-tab-header: 12px;
-  --font-size-section-subheader: 18px;
-  --font-size-category-tag: 12px;
+  --color-primary-dark: #3B5998;      /* Dark Blue */
+  --color-primary-base: #2563EB;      /* Light Blue */
+  --color-primary-light: #bfdbfe;     /* Pale Blue */
+  --color-primary-ultralight: #dbeafe;/* Off Blue */
+
+  --color-text-primary: #1F2937;      /* Off Black */
+  --color-text-secondary: #4B5563;    /* Gray Body */
+  --color-text-muted: #6B7280;        /* Gray Categories */
+  --color-text-inverted: #FFFFFF;
+
+  --color-off-white: #D1D5DB;
+
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F9FAFB;      /* Off White */
+  --color-bg-footer: #111827; /* Black Footer */
+  
+   --color-bg-section: #F3F4F6; /* Section Background off-white */
+
+  --color-border-primary: #E5E7EB;    /* Gray Border */
+  --color-border-input: #01d5db;
+
+  --color-text-footer: #9ca3af;       /* Gray Body Footer */
+
+  /* Status & Category Colors */
+  --color-status-success: #16A34A;    /* Green */
+  --color-status-error: #e63946;      /* Red */
+  --color-category-pink: #DB2777;
+  --color-category-purple: #9333EA;
+  --color-category-orange: #EA580C;
+  --color-category-yellow: #CA8A04;
+
+  /* Font Sizes (using a t-shirt sizing scale) */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+  --font-size-5xl: 48px;
+  --font-size-6xl: 60px;
 
   /* Border radii */
   --radius-sm: 4px;
@@ -57,149 +83,165 @@
   --radius-full: 9999px;
 }
 
-/* 4. Global default font stacks */
-* {
-  font-family: var(--font-body);
-}
-h1, h2, h3, h4, h5, h6, button {
-  font-family: var(--font-display);
-}
+/*
+ * Tailwind JIT Safelist
+ * Force Tailwind to generate specific dynamic classes so they
+ * are available for React components.
+ */
+/* gap-2 gap-4 gap-6 gap-8 gap-10 gap-12 gap-16 gap-20 gap-24 */
 
-/* 5. Component classes, defined once with CSS and tokens */
+/*
+ * =================================================================================================
+ * 5. REUSABLE COMPONENT CLASSES
+ * =================================================================================================
+ */
+
 @layer components {
   .page-header {
-    font-size: var(--font-size-page-header);
-    font-weight: 700;
-    color: var(--color-white);
+    font-size: var(--font-size-6xl);
+    font-family: var(--font-display);
+    color: var(--color-text-inverted);
+    font-weight: bold;
     line-height: 1.2;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
     .page-header {
-      font-size: 60px;
+      font-size: var(--font-size-6xl);
     }
   }
 
   .content-header {
-    font-size: var(--font-size-content-header);
-    font-weight: 700;
-    color: var(--color-off-black);
+    font-size: var(--font-size-3xl);
+    font-family: var(--font-display);
+    font-weight: bold;
+    color: var(--color-text-primary)
   }
-  @media (min-width: 1024px) {
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
     .content-header {
-      font-size: 30px;
+      font-size: var(--font-size-4xl);
     }
   }
 
   .section-header {
-    font-size: var(--font-size-section-header);
-    font-weight: 700;
-    color: var(--color-off-black);
+    font-size: var(--font-size-xl);
+    font-family: var(--font-display);
+    color: var((--color-text-primary))
   }
-  @media (min-width: 1024px) {
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
     .section-header {
-      font-size: 30px;
-    }
-  }
-
-  .page-subheader {
-    font-size: var(--font-size-page-subheader);
-    color: var(--color-off-white);
-  }
-  @media (min-width: 1024px) {
-    .page-subheader {
-      font-size: 20px;
-    }
-  }
-
-  .section-body {
-    font-size: var(--font-size-section-body);
-    color: var(--color-gray-body);
-    line-height: 1.6;
-  }
-  @media (min-width: 1024px) {
-    .section-body {
-      font-size: 16px;
-    }
-  }
-
-  .text-link {
-    font-size: var(--font-size-text-link);
-    font-weight: 600;
-    color: var(--color-dark-blue);
-    text-decoration: underline;
-  }
-  @media (min-width: 1024px) {
-    .text-link {
-      font-size: 16px;
-    }
-  }
-
-  .nav-item {
-    font-size: var(--font-size-nav-item);
-    font-weight: 600;
-    color: var(--color-gray-body);
-  }
-
-  .footer-header {
-    font-size: var(--font-size-footer-header);
-    font-weight: 700;
-    color: var(--color-white);
-  }
-  @media (min-width: 1024px) {
-    .footer-header {
-      font-size: 18px;
-    }
-  }
-
-  .footer-link {
-    font-size: var(--font-size-footer-link);
-    color: var(--color-gray-body-footer);
-  }
-  @media (min-width: 1024px) {
-    .footer-link {
-      font-size: 16px;
-    }
-  }
-
-  .footer-copyright {
-    font-size: var(--font-size-footer-copyright);
-    color: var(--color-gray-body-footer);
-  }
-  @media (min-width: 1024px) {
-    .footer-copyright {
-      font-size: 14px;
-    }
-  }
-
-  .tab-header {
-    font-size: var(--font-size-tab-header);
-    font-weight: 600;
-    color: var(--color-gray-body);
-  }
-  @media (min-width: 1024px) {
-    .tab-header {
-      font-size: 16px;
+      font-size: var(--font-size-2xl);
     }
   }
 
   .section-subheader {
-    font-size: var(--font-size-section-subheader);
-    font-weight: 700;
-    color: var(--color-off-black);
+    font-size: var(--font-size-lg);
   }
-  @media (min-width: 1024px) {
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
     .section-subheader {
-      font-size: 24px;
+      font-size: var(--font-size-xl);
+    }
+  }
+
+  .page-subheader {
+    font-size: var(--font-size-lg);
+    font-family: var(--font-body);
+    color: var(--color-border-primary);
+    font-weight: 400;
+  }
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+    .page-subheader {
+      font-size: var(--font-size-xl);
+    }
+  }
+
+  .section-body {
+    font-size: var(--font-size-base);
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+    .section-body {
+      font-size: var(--font-size-base);
+    }
+  }
+
+  .text-link {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    text-decoration: none;
+  }
+  .text-link:hover {
+    text-decoration: underline;
+  }
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+    .text-link {
+      font-size: var(--font-size-base);
+    }
+  }
+
+  .nav-item {
+    font-size: var(--font-size-sm);
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--color-text-secondary);
+  }
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+    .nav-item {
+      font-size: var(--font-size-base);
+    }
+  }
+
+  .footer-header {
+    font-size: var(--font-size-base);
+    color: var(--color-text-inverted);
+  }
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+    .footer-header {
+      font-size: var(--font-size-lg);
+    }
+  }
+
+  .footer-link {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-footer);
+  }
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+    .footer-link {
+      font-size: var(--font-size-sm);
+    }
+  }
+
+  .footer-copyright {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-footer);
+  }
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+    .footer-copyright {
+      font-size: var(--font-size-sm);
+    }
+  }
+
+  .tab-header {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+  }
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
+    .tab-header {
+      font-size: var(--font-size-base);
     }
   }
 
   .category-tag {
-    font-size: var(--font-size-category-tag);
-    color: var(--color-gray-categories);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: var(--screen-lg)) { /* CORRECTED */
     .category-tag {
-      font-size: 14px;
+      font-size: var(--font-size-sm);
     }
   }
 }
