@@ -9,7 +9,7 @@ import Button from "../shared/semantic/Button";
 
 const TheGospel: FC = () => {
     return (
-        <Flex direction="col" items="center" className="space-y-4 mx-auto ">
+        <Flex direction="col" items="center" className="space-y-4 mx-autow py-12">
             <Heading variant="content">The Gospel</Heading>
             <Text variant="body" className="text-[20px] text-center">"For God so loved the world that he gave his one and only Son" - John 3:16</Text>
             <Card className="bg-gradient-primary text-center">

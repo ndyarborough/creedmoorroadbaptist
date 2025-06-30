@@ -20,49 +20,15 @@ import Button from "../shared/semantic/Button";
 import IconContainer from "../shared/semantic/IconContainer";
 import MapEmbed from "../shared/semantic/MapEmbed";
 import SubscriptionBanner from "../components/SubscriptionBanner";
-
+import SundayBanner from "../components/banners/SundayBanner";
 const Home = () => {
-    // This section renders the blue "Join Us This Sunday" bar.
-    const SundayBanner = (
-        <Container className="bg-bg-primary rounded w-[60%] shadow-lg py-6">
-            <Flex justify="between" items="center" className="flex-col md:flex-row" gap={6}>
-                <Flex direction="col" items="center" className="md:items-start text-center md:text-left">
-                    <Heading as="h2" variant="section-subheader">
-                        Join Us This Sunday
-                    </Heading>
-                    <Text as="span" variant="body" className="text-primary-light">
-                        Experience worship, community, and growth.
-                    </Text>
-                </Flex>
-
-                <Flex items="start" className="flex-col sm:flex-row text-center sm:text-left" gap={6}>
-                    <Flex direction="col">
-                        <Text as="span" variant="body" className="font-semibold">
-                            Sunday Services
-                        </Text>
-                        <Text as="span" variant="body" className="text-primary-light">
-                            9:00 AM & 11:00 AM
-                        </Text>
-                    </Flex>
-                    <Flex direction="col">
-                        <Text as="span" variant="body" className="font-semibold">
-                            Wednesday Bible Study
-                        </Text>
-                        <Text as="span" variant="body" className="text-primary-light">
-                            7:00 PM
-                        </Text>
-                    </Flex>
-                </Flex>
-            </Flex>
-        </Container>
-    );
-
     const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3233.3090579250766!2d-78.68387582420404!3d35.865942372528224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89acf7b7b92fb509%3A0xb2474f985d9701a7!2sCreedmoor%20Road%20Baptist%20Church!5e0!3m2!1sen!2sus!4v1751168867424!5m2!1sen!2sus";
 
     return (
         <PageLayout pageId="home" banner={SundayBanner}>
+
             {/* Welcome Section */}
-            <Grid gap={12} className="grid-cols-2 px-32">
+            <Grid gap={12} className="grid-cols-2 px-32 pt-12">
                 <Flex direction="col" className="text-left space-y-8">
                     <Heading as="h2" variant="content">
                         Welcome to Cornerstone Church
@@ -87,28 +53,28 @@ const Home = () => {
 
             {/* Upcoming Events Section */}
             <Container className="text-center items-center bg-bg-section mt-8 py-8 space-y-8">
-                {/* Event Section Header */}
                 <Heading as="h2" variant="content">Upcoming Events</Heading>
                 <Text as="p" variant="body" className="mt-4">
                     Join us for these special gatherings and opportunities to connect, serve, and grow together.
                 </Text>
+
                 {/* Event Grid */}
                 <Grid className="grid-cols-1 md:grid-cols-3 gap-12 mt-12 text-left">
-                    <Card>
+                    <Card className="px-0 py-0">
                         <img src="https://placehold.co/400x250/ddd/333?text=Worship" alt="Worship night" className="w-full aspect-video object-cover" />
                         <div className="p-6">
                             <Heading as="h3" variant="section">Summer Worship Night</Heading>
                             <Text as="p" variant="body" className="mt-2">Join us for an evening of praise and worship.</Text>
                         </div>
                     </Card>
-                    <Card>
+                    <Card className="px-0 py-0">
                         <img src="https://placehold.co/400x250/ddd/333?text=Kids" alt="Children doing crafts" className="w-full h-48 object-cover" />
                         <div className="p-6">
                             <Heading as="h3" variant="section">Vacation Bible School</Heading>
                             <Text as="p" variant="body" className="mt-2">A fun-filled week of learning for kids ages 5-12.</Text>
                         </div>
                     </Card>
-                    <Card>
+                    <Card className="px-0 py-0">
                         <img src="https://placehold.co/400x250/ddd/333?text=Service" alt="Volunteers working on a project" className="w-full h-48 object-cover" />
                         <div className="p-6">
                             <Heading as="h3" variant="section">Community Service Day</Heading>
@@ -126,12 +92,12 @@ const Home = () => {
 
             {/* Our Ministries Section */}
             <Container className="text-center items-center bg-bg-section py-8 space-y-8">
-                {/* Event Section Header */}
                 <Heading as="h2" variant="content">Our Ministries</Heading>
                 <Text as="p" variant="body" className="mt-4">
                     Discover the different ways you can connect, serve, and grow at Cornerstone Church.
                 </Text>
-                {/* Ministry Cards */}
+
+                {/* Ministry Cards Grid */}
                 <Grid className="grid-cols-4" gap={4}>
                     <Card className="p-8 space-y-4">
                         {/* Icon */}
@@ -187,12 +153,11 @@ const Home = () => {
                     <ArrowRightAltIcon className="text-primary-dark" />
                 </Link>
             </Container>
+
             {/* Latest Sermon Section */}
             <Container className="bg-bg-footer p-12">
                 <Flex direction="row">
-                    {/* Image */}
                     <img src='https://b496025.smushcdn.com/496025/wp-content/uploads/sites/37/2018/02/img_1161.jpg?lossy=0&strip=1&webp=1' alt='Video of last sermon' className="aspect-video object-cover w-[clamp(100px,60%,1000px)]"/>
-                    {/* Content */}
                     <Flex direction="col" className="p-12 space-y-6">
                         <Text variant="body" className="text-status-error font-bold">LATEST SERMON</Text>
                         <Heading variant="content" className="text-bg-primary">Finding Peace in Troubled Times</Heading>

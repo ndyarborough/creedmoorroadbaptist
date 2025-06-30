@@ -22,7 +22,7 @@ import Heading from "../shared/semantic/Heading";
 
 const MissionsAndValues: FC = () => {
     return(
-        <Flex direction="col" items="center" className="space-y-4 mx-auto ">
+        <Flex direction="col" items="center" className="space-y-4 py-12 mx-auto ">
                             <Heading variant="content">Missions & Values</Heading>
                             <Text variant="body" className="text-[20px] text-center">One day everything will be restored back to God's design, and those who trust Jesus by faith will enjoy eternity in the new heaven and earth.</Text>
                             <Card className="bg-primary-dark">

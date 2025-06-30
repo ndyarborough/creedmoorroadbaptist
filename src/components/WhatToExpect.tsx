@@ -10,7 +10,7 @@ import Grid from "../shared/semantic/Grid";
 
 const WhatToExpect: FC = () => {
     return (
-        <Flex direction="col" items="center" className="space-y-12 mx-auto ">
+        <Flex direction="col" items="center" className="space-y-12 mx-auto py-12">
             <Heading variant="content">What to Expect</Heading>
             <Text variant="body" className="text-[20px] text-center">You are welcome here. We understand showing up at a new place for the first time can be nerve-wracking, so here's more information about CRBC.</Text>
             <Card className="bg-primary-dark text-center">
