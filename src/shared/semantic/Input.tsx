@@ -65,7 +65,7 @@ const Input: React.FC<InputProps> = ({
     .filter(Boolean)
     .join(' ');
 
-  const containerClasses = ['w-full flex justify-center', containerClassName].filter(Boolean).join(' ');
+  const containerClasses = ['w-full flex justify-center flex-col', containerClassName].filter(Boolean).join(' ');
 
   return (
     <div className={containerClasses}>
@@ -84,7 +84,7 @@ const Input: React.FC<InputProps> = ({
         <p id={`${inputId}-error`} className="mt-2 text-sm text-status-error">
           {error}
         </p>
-      )}
+      )}  
     </div>
   );
 };

@@ -38,7 +38,7 @@ img {
 
   --color-text-primary: #1f2937; /* Off Black */
   --color-text-secondary: #4b5563; /* Gray Body */
-  --color-text-tertiary: #EAB308; /* Gray Body */
+  --color-text-tertiary: #EAB308; /* Yellow  */
   --color-text-muted: #6b7280; /* Gray Categories */
   --color-text-inverted: #ffffff;
 
@@ -104,6 +104,12 @@ img {
     line-height: 1.2;
   }
 
+  .banner-header {
+    font-size: var(--font-size-2xl);
+    font-family: var(--font-display);
+    font-weight: bold;
+  }
+
   .material-symbols-outlined {
     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
   }
@@ -150,6 +156,7 @@ img {
 
   .section-subheader {
     font-size: var(--font-size-lg);
+    font-weight: bold;
   }
   @media (min-width: var(--screen-lg)) {
     /* CORRECTED */

@@ -1,19 +1,21 @@
 import React from 'react';
 
 // =================================================================================================
-// Button Component (Corrected)
+// Button Component (Corrected and Enhanced)
 // =================================================================================================
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
   children: React.ReactNode;
   /** Visual style of the button */
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'white' | 'transparent' | 'danger';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'white' | 'transparent' | 'danger' | 'gray';
   /** Size of the button */
   size?: 'sm' | 'md' | 'lg';
   /** Renders the component as a link or a button */
   as?: 'button' | 'a';
   /** Href for the link if `as` is 'a' */
   href?: string;
+  /** Link target attribute. Automatically adds rel="noopener noreferrer" for "_blank". */
+  target?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -22,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
   size = 'md',
   as: Component = 'button',
+  target,
   disabled,
   ...props
 }) => {
@@ -44,6 +47,7 @@ const Button: React.FC<ButtonProps> = ({
     white: 'bg-bg-primary text-bg-footer',
     danger: 'bg-status-error text-bg-primary',
     transparent: 'bg-transparent text-bg-primary border-1 border-bg-primary',
+    gray: 'bg-border-primary text-text-primary'
   };
 
   // Styles for the disabled state
@@ -58,12 +62,18 @@ const Button: React.FC<ButtonProps> = ({
     className,
   ].filter(Boolean).join(' ');
 
+  // Prepare props for the anchor tag
+  const linkProps = Component === 'a' ? {
+    target: target,
+    // Automatically add rel="noopener noreferrer" for security when target is "_blank"
+    rel: target === '_blank' ? 'noopener noreferrer' : undefined,
+  } : {};
+
   return (
-    <Component className={classes} disabled={disabled} {...props}>
+    <Component className={classes} disabled={disabled} {...linkProps} {...props}>
       {children}
     </Component>
   );
 };
-
 
 export default Button;

@@ -6,7 +6,7 @@ import React from 'react';
 // =================================================================================================
 
 // Define the variants which map to the semantic classes in your index.css
-type HeadingVariant = 'page' | 'content' | 'section' | 'section-subheader' | 'footer';
+type HeadingVariant = 'page' | 'content' | 'section' | 'section-subheader' | 'footer' | 'banner';
 
 interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   /** The content of the heading. */
@@ -42,6 +42,7 @@ export const Heading: React.FC<HeadingProps> = ({
     section: 'section-header',
     'section-subheader': 'section-subheader',
     footer: 'footer-header',
+    banner: 'banner-header',
   };
 
   const classes = [

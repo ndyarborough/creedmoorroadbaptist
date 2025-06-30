@@ -9,7 +9,7 @@ interface IconContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The icon component to be displayed inside the container. */
   children: React.ReactNode;
   /** The background color variant, mapping to your theme colors. */
-  variant?: 'primary' | 'secondary' | 'success' | 'error' | 'muted';
+  variant?: 'primary' | 'secondary' | 'success' | 'error' | 'muted' | 'primary-dark';
   /** The size of the container. */
   size?: 'sm' | 'md' | 'lg' | 'xl';
   /** The shape of the container. */
@@ -56,10 +56,11 @@ const IconContainer: React.FC<IconContainerProps> = ({
   // These map to the semantic color variables in your index.css.
   const variantStyles = {
     primary: 'bg-primary-base',
+    'primary-dark': 'bg-primary-dark',
     secondary: 'bg-text-secondary',
     success: 'bg-status-success',
     error: 'bg-status-error',
-    muted: 'bg-bg-secondary',
+    muted: 'bg-border-primary',
   };
 
   // Combine all classes

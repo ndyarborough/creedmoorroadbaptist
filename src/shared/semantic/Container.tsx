@@ -23,7 +23,7 @@ interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Container: React.FC<ContainerProps> = ({ children, className, ...props }) => {
   // Sets max-width, centers with mx-auto, and adds horizontal padding for gutters.
   const classes = [
-    'mx-auto px-4 sm:px-6 lg:px-8',
+    'mx-auto',
     className
   ]
     .filter(Boolean)

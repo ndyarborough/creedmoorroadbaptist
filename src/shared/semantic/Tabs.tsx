@@ -98,7 +98,7 @@ export const TabPanels: React.FC<TabPanelsProps> = ({ children, className }) => 
     }
 
     return (
-        <div className={`py-6 ${className}`}>
+        <div className={`${className}`}>
             {children[context.activeIndex]}
         </div>
     );

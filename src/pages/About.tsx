@@ -11,7 +11,7 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs } from "../shared/semantic/Tabs
 const About = () => {
     return (
         <PageLayout pageId="about">
-            <Tabs >
+            <Tabs>
                 <TabList>
                     <Tab index={0}>Missions & Values</Tab>
                     <Tab index={1}>The Gospel</Tab>
