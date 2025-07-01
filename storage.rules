@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow public read of anything in the "pageHeaders" folder:
+    match /pageHeaders/{allPaths=**} {
+      allow read: if true;
+      // Restrict writes to authenticated users (or add a custom admin claim)
+      allow write: if request.auth != null;
+    }
+    
+   match /events/{allPaths=**} {
+      // Allow read/write if authenticated AND user email is in whitelist
+      allow read, write: if request.auth != null && exists(/databases/$(database)/documents/whitelist/$(request.auth.token.email));
+    }
+
+    // Everything else is locked down
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
