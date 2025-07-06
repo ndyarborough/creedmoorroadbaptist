@@ -113,7 +113,7 @@ const Contact = () => {
                         <Heading variant="section">Meet the Pastor</Heading>
                         <Flex direction="row" gap={4}>
                             <img
-                                src="/pastor.png"
+                                src="/creedmoorroadbaptist/pastor.png"
                                 alt="Pastor"
                                 className="w-12 h-12 rounded-full object-cover"
                             />
