@@ -22,7 +22,7 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo + title/tagline */}
           <Link to="/" className="flex items-center space-x-2">
-            <img src="/logo.svg" alt="CRBC logo" className="h-8 w-auto" />
+            <img src="/creedmoorroadbaptist/logo.svg" alt="CRBC logo" className="h-8 w-auto" />
             <div className='flex flex-col'>
               <div className="text-lg font-bold text-nowrap">Creedmoor Road Baptist</div>
               <div className="section-body">Love. Grow. Go</div>

@@ -9,7 +9,7 @@ export default function Footer() {
                 {/* Brand */}
                 <div className="footer-brand space-y-2">
                     <div className='flex justify-center items-center'>
-                        <img src="/logo.svg" alt="Cornerstone Church logo" className="footer-logo size-7" />
+                        <img src="/creedmoorroadbaptist/logo.svg" alt="Cornerstone Church logo" className="footer-logo size-7" />
                         <h2 className="footer-header">Creedmoor Road Baptist Church</h2>
                     </div>
                     <p className="footer-link">A place to belong, believe, and become.</p>
