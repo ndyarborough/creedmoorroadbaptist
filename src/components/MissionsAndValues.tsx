@@ -35,8 +35,8 @@ const MissionsAndValues: FC = () => {
                                     <Text variant="body">To be a church where everyone can find their place, grow in their faith, and make a difference in their community and beyond.</Text>
                                 </Card>
                                 <Card>
-                                    <Heading variant="section">Our Vision</Heading>
-                                    <Text variant="body">To be a church where everyone can find their place, grow in their faith, and make a difference in their community and beyond.</Text>
+                                    <Heading variant="section">Our Purpose</Heading>
+                                    <Text variant="body">To create an environment where people can experience the life-changing power of Jesus Christ and grow into mature disciples.</Text>
                                 </Card>
                             </Flex>
                             <Heading variant="section" className="py-4">Core Values</Heading>
@@ -51,37 +51,37 @@ const MissionsAndValues: FC = () => {
                                 <Card accent="left" accentColor="primary">
                                     <Flex direction="row" gap={2}>
                                         <Favorite className="text-primary-dark" />
-                                        <Heading variant="section-subheader">Biblical Authority</Heading>
+                                        <Heading variant="section-subheader">Gospel Power</Heading>
                                     </Flex>
-                                    <Text variant="body">The Bible is our sole authority.</Text>
+                                    <Text variant="body">We expect the gospel to change lives.</Text>
                                 </Card>
                                 <Card accent="left" accentColor="primary">
                                     <Flex direction="row" gap={2}>
                                         <Book className="text-primary-dark" />
-                                        <Heading variant="section-subheader">Biblical Authority</Heading>
+                                        <Heading variant="section-subheader">Daily Application</Heading>
                                     </Flex>
-                                    <Text variant="body">The Bible is our sole authority.</Text>
+                                    <Text variant="body">We apply God's Word to our daily lives.</Text>
                                 </Card>
                                 <Card accent="left" accentColor="primary">
                                     <Flex direction="row" gap={2}>
                                         <Groups className="text-primary-dark" />
-                                        <Heading variant="section-subheader">Biblical Authority</Heading>
+                                        <Heading variant="section-subheader">Generational Impact</Heading>
                                     </Flex>
-                                    <Text variant="body">The Bible is our sole authority.</Text>
+                                    <Text variant="body">We invest in a ll generations to reach the next generation.</Text>
                                 </Card>
                                 <Card accent="left" accentColor="primary">
                                     <Flex direction="row" gap={2}>
                                         <VolunteerActivism className="text-primary-dark" />
-                                        <Heading variant="section-subheader">Biblical Authority</Heading>
+                                        <Heading variant="section-subheader">Community Service</Heading>
                                     </Flex>
-                                    <Text variant="body">The Bible is our sole authority.</Text>
+                                    <Text variant="body">We serve our community to impact lives for the gospel.</Text>
                                 </Card>
                                 <Card accent="left" accentColor="primary">
-                                    <Flex direction="row">
+                                    <Flex direction="row" gap={2}>
                                         <SelfImprovement className="text-primary-dark" />
-                                        <Heading variant="section-subheader">Biblical Authority</Heading>
+                                        <Heading variant="section-subheader">Prayer Power</Heading>
                                     </Flex>
-                                    <Text variant="body">The Bible is our sole authority.</Text>
+                                    <Text variant="body">We pray trusting in God's power.</Text>
                                 </Card>
                             </Grid>
                             {/* Life Marks */}
@@ -216,7 +216,7 @@ const MissionsAndValues: FC = () => {
                             </Grid>
                             <Flex direction="col" items="center" className="bg-bg-section p-8 space-y-4">
                                 <Heading variant="section">Our Focus</Heading>
-                                <Text variant="body" className="text-center">"Sometimes we say 'no so we can say 'yes'."</Text>
+                                <Text variant="body" className="text-center">"Sometimes we say 'no' so we can say 'yes'."</Text>
                                 <Text variant="body" className="text-center">We believe that God has a specific mission for Creedmoor Road Baptist Church, and we are most effective when we are focused on where He is leading us.</Text>
 
                             </Flex>
