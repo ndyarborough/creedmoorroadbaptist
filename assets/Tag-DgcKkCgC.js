@@ -1,0 +1,1 @@
+import{j as n}from"./index-B2tQL_YW.js";const r=({children:s,className:e,...o})=>{const t=["inline-block px-3 py-1 text-sm font-semibold rounded-full",e].filter(Boolean).join(" ");return n.jsx("span",{className:t,...o,children:s})};export{r as T};

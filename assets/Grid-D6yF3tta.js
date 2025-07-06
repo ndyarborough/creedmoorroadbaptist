@@ -1,0 +1,1 @@
+import{j as l}from"./index-B2tQL_YW.js";const d=({children:o,className:t,cols:s,rows:r,gap:i=0,...e})=>{const a=["grid",s?`grid-cols-${s}`:"",r?`grid-rows-${r}`:"",i>0?`gap-${i}`:"","w-full",t].filter(Boolean).join(" ");return l.jsx("div",{className:a,...e,children:o})};export{d as G};

@@ -1,0 +1,1 @@
+import{j as e}from"./index-B2tQL_YW.js";const a=({embedUrl:r,title:l="Location Map"})=>e.jsx("div",{className:"w-full h-full  min-h-[400px] rounded-lg overflow-hidden shadow-2xl",children:e.jsx("iframe",{src:r,width:"100%",height:"100%",style:{border:0},allowFullScreen:!0,loading:"lazy",referrerPolicy:"no-referrer-when-downgrade",title:l})});export{a as M};
