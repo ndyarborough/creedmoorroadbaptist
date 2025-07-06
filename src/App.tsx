@@ -5,7 +5,7 @@ import { AuthProvider } from './shared/context/AuthContext';
 
 function App() {
   return (
-    <BrowserRouter basename="/creedmoorroadbaptist">
+    <BrowserRouter basename="/">
       <AuthProvider>
         <AppRoutes />
       </AuthProvider>

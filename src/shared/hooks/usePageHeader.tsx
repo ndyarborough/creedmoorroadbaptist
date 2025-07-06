@@ -279,6 +279,6 @@ export const pageHeaderCache = {
   clearExpired: clearExpiredCache,
   
   preload: async (pageId: string) => {
-    console.log('Preloading not implemented yet')
+    console.log('Preloading not implemented yet', pageId)
   }
 }

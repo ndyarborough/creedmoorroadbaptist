@@ -31,7 +31,7 @@ const Home = () => {
             <Grid gap={12} className="grid-cols-1 lg:grid-cols-2 px-12 lg:px-32 pt-12">
                 <Flex direction="col" className="text-left space-y-8">
                     <Heading as="h2" variant="content">
-                        Welcome to Cornerstone Church
+                        Welcome to Creedmoor Road Baptist Church
                     </Heading>
                     <Text as="p" variant="body">
                         We are a vibrant community of believers dedicated to sharing God’s love, growing in faith together, and serving our community. Whether you’re exploring faith for the first time or looking for a church home, you’ll find a warm welcome here.
@@ -94,7 +94,7 @@ const Home = () => {
             <Container className="text-center items-center bg-bg-section p-12 space-y-8">
                 <Heading as="h2" variant="content">Our Ministries</Heading>
                 <Text as="p" variant="body" className="mt-4">
-                    Discover the different ways you can connect, serve, and grow at Cornerstone Church.
+                    Discover the different ways you can connect, serve, and grow at Creedmoor Road Baptist Church.
                 </Text>
 
                 {/* Ministry Cards Grid */}

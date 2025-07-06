@@ -33,7 +33,7 @@ const PrivateRoute = () => {
     return <div>Loading...</div>; // Or a spinner component
   }
 
-  return currentUser && isWhitelisted ? <Outlet /> : <Navigate to="/creedmoorroadbaptist/login" />;
+  return currentUser && isWhitelisted ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;
