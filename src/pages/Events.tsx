@@ -6,7 +6,6 @@ import SubscriptionBanner from "../components/SubscriptionBanner";
 import PageLayout from "../shared/layouts/PageLayout";
 import Button from "../shared/semantic/Button";
 import Card from "../shared/semantic/Card";
-import Container from "../shared/semantic/Container";
 import Dropdown from "../shared/semantic/Dropdown";
 import Flex from "../shared/semantic/Flex";
 import Heading from "../shared/semantic/Heading";
@@ -116,17 +115,17 @@ const Events = () => {
         return date.toLocaleDateString('en-US', options);
     };
 
-    const EventsBanner = (
-        <Container className="bg-bg-primary rounded max-w-[90%] lg:w-[60%] shadow-lg p-6">
-            <Flex direction="row" justify="between" items="center" gap={6}>
-                <Heading as="h2" variant="section">Upcoming Events</Heading>
-                <Flex direction="row" gap={4} className="max-w-fit">
-                    <Button>Calendar View</Button>
-                    <Button variant="gray" className="">List View</Button>
-                </Flex>
-            </Flex>
-        </Container>
-    );
+    // const EventsBanner = (
+    //     <Container className="bg-bg-primary rounded max-w-[90%] lg:w-[60%] shadow-lg p-6">
+    //         <Flex direction="row" justify="between" items="center" gap={6}>
+    //             <Heading as="h2" variant="section">Upcoming Events</Heading>
+    //             <Flex direction="row" gap={4} className="max-w-fit">
+    //                 <Button>Calendar View</Button>
+    //                 <Button variant="gray" className="">List View</Button>
+    //             </Flex>
+    //         </Flex>
+    //     </Container>
+    // );
 
     const options = [
         { label: 'Event Type', value: '' },
@@ -135,7 +134,7 @@ const Events = () => {
     ];
 
     return (
-        <PageLayout pageId="events" banner={EventsBanner}>
+        <PageLayout pageId="events">
             {/* Filters Section */}
             <Flex direction="col" className="p-8 space-y-8">
                 <Card>

@@ -26,12 +26,12 @@ const Contact = () => {
     const ContactBanner = (
         <Container className="bg-bg-primary rounded max-w-[90%] lg:max-w-[60%] shadow-lg py-6">
             <Flex direction="col" className="md:flex-row gap-2 lg:gap-6" justify="between" items="center">
-                <Flex direction="row" className="md:flex-col md:max-w-[40%] gap-4 justify-center items-center lg:gap-4">
+                <Flex direction="col" className="py-2 md:py-0 max-w-fit md:flex-col gap-4 justify-center items-center lg:gap-4">
                     <Heading as="h2" variant="banner">Upcoming Events</Heading>
                     <Text variant="body">We're here to answer any questions you may have</Text>
                 </Flex>
                 <Flex direction="col" className="md:flex-row text-center items-center justify-center gap-4 lg:gap-12">
-                    <Flex direction="row" justify="center" className="gap-4 md:gap-0 md:flex-col text-center items-center space-y-3">
+                    <Flex direction="row" justify="center" className="md:w-full gap-4 md:gap-0 md:flex-col text-center items-center space-y-3">
                         <Phone className="w-8 h-8 m-0 text-primary-dark" />
                         {/* CardHeader */}
                         <Heading as="h3" variant="section" className="hidden md:block">Phone</Heading>
@@ -46,7 +46,7 @@ const Contact = () => {
                         {/* CardHeader */}
                         <Heading as="h3" variant="section" className="hidden md:block">Email</Heading>
                         {/* Description */}
-                        <Text as="p" variant="body">
+                        <Text as="p" variant="body" className="break-all lg:break-normal">
                             CreedmoorRoadBaptist@gmail.com
                         </Text>
                     </Flex>
@@ -79,7 +79,6 @@ const Contact = () => {
                         </Flex>
                         <Input label="Phone Number" type="text"></Input>
                         <Input label="Subject" type="text"></Input>
-                        <Input label="Email Address" type="text"></Input>
                         <Input label="Email Address" type="text"></Input>
                         <Checkbox label="Subscribe to our newsletter for updates on church events and activities" />
                         <Flex justify="end" className="mt-4">

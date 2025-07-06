@@ -28,7 +28,7 @@ const BibleStudies: FC = () => {
                                 <Text variant="body">Ages 2-12</Text>
                             </Flex>
                             {/* card header */}
-                            <Heading variant="section">Gospel of John Study</Heading>
+                            <Heading variant="section">Gospel of John</Heading>
                             {/* description */}
                             <Text variant="body">Equipping parents to shepherd tehir child's heart and teaching children what it means to love and live for Jesus.</Text>
                             {/* time & location row */}

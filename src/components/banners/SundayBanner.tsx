@@ -5,7 +5,7 @@ import Text from "../../shared/semantic/Text";
 
 const SundayBanner = (
         <Container className="bg-bg-primary rounded w-[90%] lg:w-[60%] shadow-lg p-6">
-            <Flex direction="row" justify="between" items="center">
+            <Flex direction="col" className="md:flex-row space-y-4" justify="between" items="center">
                 <Flex direction="col" items="center" className="md:items-start text-center md:text-left">
                     <Heading as="h2" variant="section-subheader">
                         Join Us This Sunday
@@ -15,7 +15,7 @@ const SundayBanner = (
                     </Text>
                 </Flex>
 
-                <Flex direction="col" items="start" className="text-center sm:text-left gap-2 lg:gap-6" >
+                <Flex direction="col" items="start" className="text-center md:flex-row md:text-left gap-2 lg:gap-6" >
                     <Flex direction="col">
                         <Text as="p" variant="body" className="font-bold">
                             Sunday Services
