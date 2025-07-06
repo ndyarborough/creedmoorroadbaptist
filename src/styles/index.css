@@ -97,7 +97,7 @@ img {
 
 @layer components {
   .page-header {
-    font-size: var(--font-size-6xl);
+    font-size: var(--font-size-4xl);
     font-family: var(--font-display);
     color: var(--color-text-inverted);
     font-weight: bold;

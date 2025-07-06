@@ -17,14 +17,14 @@ export default function Navbar() {
   ]
 
   return (
-    <nav className="bg-bg-primary border-b border-gray-border">
+    <nav className="sticky top-0 z-40 bg-bg-primary border-b border-gray-border">
       <div className="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo + title/tagline */}
           <Link to="/" className="flex items-center space-x-2">
             <img src="/logo.svg" alt="CRBC logo" className="h-8 w-auto" />
             <div className='flex flex-col'>
-              <div className="text-lg font-bold">Creedmoor Road Baptist</div>
+              <div className="text-lg font-bold text-nowrap">Creedmoor Road Baptist</div>
               <div className="section-body">Love. Grow. Go</div>
             </div>
           </Link>

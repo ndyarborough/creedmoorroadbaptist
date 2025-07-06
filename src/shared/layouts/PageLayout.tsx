@@ -16,7 +16,7 @@ interface PageLayoutProps {
 export default function PageLayout({ pageId, children, banner, heroActions }: PageLayoutProps) {
   const data = usePageHeader(pageId);
 
-  const mainContentMargin = banner ? 'mt-16' : '';
+  const mainContentMargin = banner ? 'mt-32 lg:mt-16' : '';
   if (!data) return null;
 
   return (

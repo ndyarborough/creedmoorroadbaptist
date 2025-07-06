@@ -12,7 +12,7 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs } from "../shared/semantic/Tabs
 const About = () => {
     return (
         <PageLayout pageId="about">
-            <Flex direction="col" className="max-w-[70%] mx-auto">
+            <Flex direction="col" className= "max-w-[90%] lg:max-w-[70%] mx-auto">
                 <Tabs>
                     <TabList>
                         <Tab index={0}>Missions & Values</Tab>
@@ -20,7 +20,7 @@ const About = () => {
                         <Tab index={2}>What to Expect</Tab>
                     </TabList>
 
-                    <TabPanels className="max-w-[80%] mx-auto">
+                    <TabPanels className="lg:max-w-[80%] mx-auto">
                         <TabPanel index={0}>
                             <MissionsAndValues />
                         </TabPanel>

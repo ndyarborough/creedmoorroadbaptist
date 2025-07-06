@@ -17,7 +17,7 @@ const TheGospel: FC = () => {
                 <Heading variant="section-subheader" className="text-bg-primary">The Gospel is God's plan of salvation - a story of creation, fall, redemption, and restoration that spans all of history and offers hope to every person.</Heading>
             </Card>
             <Flex direction="col" className="py-8 space-y-8">
-                <Flex direction="row" items="center" className="gap-24">
+                <Flex direction="row" items="center" className="gap-4 md:gap-12 lg:gap-24">
                     <Flex direction="col" items="center" gap={4} className="max-w-fit">
                         <IconContainer className="bg-status-success/20" size="xl" shape="circle">
                             <Spa className="text-status-success" fontSize="large" />
@@ -29,7 +29,7 @@ const TheGospel: FC = () => {
                         <Text variant="body" className="text-text-muted">Genesis 3; Romans 3:10; Romans 3:23</Text>
                     </Card>
                 </Flex>
-                <Flex direction="row" items="center" className="gap-24 flex-row-reverse">
+                <Flex direction="row" items="center" className="gap-4 md:gap-12 lg:gap-24 flex-row-reverse">
                     <Flex direction="col" items="center" gap={4} className="max-w-fit">
                         <IconContainer className="bg-status-error/20" size="xl" shape="circle">
                             <Spa className="text-status-error" fontSize="large" />
@@ -41,7 +41,7 @@ const TheGospel: FC = () => {
                         <Text variant="body" className="text-text-muted">1 Peter 3:18; Galatians 1:4</Text>
                     </Card>
                 </Flex>
-                <Flex direction="row" items="center" className="gap-24">
+                <Flex direction="row" items="center" className="gap-4 md:gap-12 lg:gap-24">
                     <Flex direction="col" items="center" gap={4} className="max-w-fit">
                         <IconContainer className="bg-primary-dark/20" size="xl" shape="circle">
                             <Spa className="text-primary-dark" fontSize="large" />
@@ -54,7 +54,7 @@ const TheGospel: FC = () => {
                         <Text variant="body" className="text-text-muted">Revelation 21:1-4; Ephesians 2:8-9</Text>
                     </Card>
                 </Flex>
-                <Flex direction="row" items="center" className="gap-24 flex-row-reverse">
+                <Flex direction="row" items="center" className="gap-4 md:gap-12 lg:gap-24 flex-row-reverse">
                     <IconContainer className="bg-text-tertiary/20" size="xl" shape="circle">
                         <Spa className="text-text-tertiary" fontSize="large" />
                     </IconContainer>

@@ -28,7 +28,7 @@ const Home = () => {
         <PageLayout pageId="home" banner={SundayBanner}>
 
             {/* Welcome Section */}
-            <Grid gap={12} className="grid-cols-2 px-32 pt-12">
+            <Grid gap={12} className="grid-cols-1 lg:grid-cols-2 px-12 lg:px-32 pt-12">
                 <Flex direction="col" className="text-left space-y-8">
                     <Heading as="h2" variant="content">
                         Welcome to Cornerstone Church
@@ -52,14 +52,14 @@ const Home = () => {
             </Grid>
 
             {/* Upcoming Events Section */}
-            <Container className="text-center items-center bg-bg-section mt-8 py-8 space-y-8">
+            <Container className="text-center items-center bg-bg-section mt-8 p-12 space-y-8">
                 <Heading as="h2" variant="content">Upcoming Events</Heading>
                 <Text as="p" variant="body" className="mt-4">
                     Join us for these special gatherings and opportunities to connect, serve, and grow together.
                 </Text>
 
                 {/* Event Grid */}
-                <Grid className="grid-cols-1 md:grid-cols-3 gap-12 mt-12 text-left">
+                <Grid className="grid-cols-1 lg:grid-cols-3 gap-12 mt-12 text-left">
                     <Card className="px-0 py-0">
                         <img src="https://placehold.co/400x250/ddd/333?text=Worship" alt="Worship night" className="w-full aspect-video object-cover" />
                         <div className="p-6">
@@ -91,14 +91,14 @@ const Home = () => {
             </Container>
 
             {/* Our Ministries Section */}
-            <Container className="text-center items-center bg-bg-section py-8 space-y-8">
+            <Container className="text-center items-center bg-bg-section p-12 space-y-8">
                 <Heading as="h2" variant="content">Our Ministries</Heading>
                 <Text as="p" variant="body" className="mt-4">
                     Discover the different ways you can connect, serve, and grow at Cornerstone Church.
                 </Text>
 
                 {/* Ministry Cards Grid */}
-                <Grid className="grid-cols-4" gap={4}>
+                <Grid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4" gap={4}>
                     <Card className="p-8 space-y-4">
                         {/* Icon */}
                         <IconContainer className="bg-primary-base/20" size="lg" shape="circle">
@@ -155,13 +155,13 @@ const Home = () => {
             </Container>
 
             {/* Latest Sermon Section */}
-            <Container className="bg-bg-footer p-12">
-                <Flex direction="row">
-                    <img src='https://b496025.smushcdn.com/496025/wp-content/uploads/sites/37/2018/02/img_1161.jpg?lossy=0&strip=1&webp=1' alt='Video of last sermon' className="aspect-video object-cover w-[clamp(100px,60%,1000px)]"/>
+            <Container className="bg-bg-footer lg:p-12">
+                <Flex direction="col" className="lg:flex-row">
+                    <img src='https://b496025.smushcdn.com/496025/wp-content/uploads/sites/37/2018/02/img_1161.jpg?lossy=0&strip=1&webp=1' alt='Video of last sermon' className="aspect-video object-cover"/>
                     <Flex direction="col" className="p-12 space-y-6">
                         <Text variant="body" className="text-status-error font-bold">LATEST SERMON</Text>
                         <Heading variant="content" className="text-bg-primary">Finding Peace in Troubled Times</Heading>
-                        <Text variant="body" className="text-off-white max-w-[60%]">
+                        <Text variant="body" className="text-off-white">
                             In this powerful message, Pastor Johnson explores how we can find God's peace even in the midst of life's most challenging circumstances. Drawing from Scripture and personal experiences, he offers practical guidance for trusting God when everything seems uncertain.
                         </Text>
                         <Flex direction="row" gap={4}>
@@ -187,8 +187,8 @@ const Home = () => {
 
             {/* Visit Us */}
             <Container >
-                <Grid className="grid-cols-2 p-8 gap-12">
-                    <Flex direction="col" className="px-20 space-y-4">
+                <Grid className="grid-cols-1 md:grid-cols-2 p-8 gap-12">
+                    <Flex direction="col" className="lg:px-20 space-y-4">
                         <Heading variant="content" >Visit Us</Heading>
                         <Text variant="body">We'd Love to see you this Sunday. Here's how you can find us:</Text>
                         <Card className="p-6 space-y-6">

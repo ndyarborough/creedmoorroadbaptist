@@ -86,9 +86,9 @@ const AudioSermons: FC = () => {
 
     return (
         <Flex direction="col" items="center">
-            <Flex direction="col" items="center" className="max-w-6xl mx-auto space-y-8 py-8">
+            <Flex direction="col" items="center" className="lg:max-w-6xl mx-auto space-y-8 py-8">
                 <Heading variant="section">Latest Messages</Heading>
-                <Flex direction="col" className="px-32 w-full space-y-4">
+                <Flex direction="col" className="px-4 md:px-12 lg:px-32 w-full space-y-4">
                     {sermons.map((sermon) => (
                         <Card key={sermon.id}>
                             <div onClick={() => handleCardClick(sermon.id)} className="cursor-pointer">

@@ -29,7 +29,7 @@ const MissionsAndValues: FC = () => {
                                 <Heading variant="section" className="text-bg-primary">Our Mission</Heading>
                                 <Heading variant="section-subheader" className="text-bg-primary">At Creedmoor Road Baptist Church we exist to be disciples who make disciples of all nations.</Heading>
                             </Card>
-                            <Flex direction="row" className="gap-8">
+                            <Flex direction="col" className="gap-4 md:gap-8 md:flex-row">
                                 <Card>
                                     <Heading variant="section">Our Vision</Heading>
                                     <Text variant="body">To be a church where everyone can find their place, grow in their faith, and make a difference in their community and beyond.</Text>
@@ -40,7 +40,7 @@ const MissionsAndValues: FC = () => {
                                 </Card>
                             </Flex>
                             <Heading variant="section" className="py-4">Core Values</Heading>
-                            <Grid className="grid-cols-2 grid-rows-3 gap-4">
+                            <Grid className="grid-cols-1 md:grid-cols-2 grid-rows-3 gap-4">
                                 <Card accent="left" accentColor="primary">
                                     <Flex direction="row" gap={2}>
                                         <MenuBook className="text-primary-dark" />
@@ -86,8 +86,8 @@ const MissionsAndValues: FC = () => {
                             </Grid>
                             {/* Life Marks */}
                             <Heading variant="section" className="py-4">Our Seven Life Marks</Heading>
-                            <Grid className="grid-cols-3 grid-rows-3 gap-x-4 gap-y-12">
-                                <Flex direction="col" className="items-center space-y-3">
+                            <Grid className="grid-cols-2 md:grid-cols-3 grid-rows-3 gap-x-4 gap-y-12">
+                                <Flex direction="col" className="items-center text-center space-y-3">
                                     <IconContainer className="bg-status-error/20" size="lg" shape="circle">
                                         <Church className="w-8 h-8 text-status-error" />
                                     </IconContainer>
@@ -98,7 +98,7 @@ const MissionsAndValues: FC = () => {
                                         Am I becoming more like Jesus?
                                     </Text>
                                 </Flex>
-                                <Flex direction="col" className="items-center space-y-3">
+                                <Flex direction="col" className="items-center text-center space-y-3">
                                     <IconContainer className="bg-status-error/20" size="lg" shape="circle">
                                         <Campaign className="w-8 h-8 text-status-error" />
                                     </IconContainer>
@@ -109,7 +109,7 @@ const MissionsAndValues: FC = () => {
                                         Am I close to someone far from God?
                                     </Text>
                                 </Flex>
-                                <Flex direction="col" className="items-center space-y-3">
+                                <Flex direction="col" className="items-center text-center space-y-3">
                                     <IconContainer className="bg-status-error/20" size="lg" shape="circle">
                                         <VolunteerActivism className="w-8 h-8 text-status-error" />
                                     </IconContainer>
@@ -120,7 +120,7 @@ const MissionsAndValues: FC = () => {
                                         Where am I serving?
                                     </Text>
                                 </Flex>
-                                <Flex direction="col" className="items-center space-y-3">
+                                <Flex direction="col" className="items-center text-center space-y-3">
                                     <IconContainer className="bg-status-error/20" size="lg" shape="circle">
                                         <CardGiftcard className="w-8 h-8 text-status-error" />
                                     </IconContainer>
@@ -131,7 +131,7 @@ const MissionsAndValues: FC = () => {
                                         Am I growing in generosity?
                                     </Text>
                                 </Flex>
-                                <Flex direction="col" className="items-center space-y-3">
+                                <Flex direction="col" className="items-center text-center space-y-3">
                                     <IconContainer className="bg-status-error/20" size="lg" shape="circle">
                                         <Groups className="w-8 h-8 text-status-error" />
                                     </IconContainer>
@@ -142,7 +142,7 @@ const MissionsAndValues: FC = () => {
                                         Who am I invested in?
                                     </Text>
                                 </Flex>
-                                <Flex direction="col" className="items-center space-y-3">
+                                <Flex direction="col" className="items-center text-center space-y-3">
                                     <IconContainer className="bg-status-error/20" size="lg" shape="circle">
                                         <Home className="w-8 h-8 text-status-error" />
                                     </IconContainer>
@@ -153,7 +153,7 @@ const MissionsAndValues: FC = () => {
                                         How am I improving my family relationships?
                                     </Text>
                                 </Flex>
-                                <Flex direction="col" className="items-center space-y-3">
+                                <Flex direction="col" className="items-center text-center space-y-3">
                                     <IconContainer className="bg-status-error/20" size="lg" shape="circle">
                                         <Forum className="w-8 h-8 text-status-error" />
                                     </IconContainer>
@@ -168,7 +168,7 @@ const MissionsAndValues: FC = () => {
                             {/* The Pathway */}
                             <Heading variant="section" className="py-4">The Pathway</Heading>
                             <Text variant="body" className="text-center">Since we are a church that seeks to be disciples who make disciples then this is the pathway for us to be disciples. We expect our members to be involved in each of these four areas:</Text>
-                            <Grid className="grid-cols-4 gap-4">
+                            <Grid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                                 <Card accent="top" accentColor="primary" className="text-center">
                                     <IconContainer className="bg-primary-dark/20" size="lg" shape="circle">
                                         <Search className="w-8 h-8 text-primary-dark" />

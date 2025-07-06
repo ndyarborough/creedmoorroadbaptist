@@ -9,7 +9,7 @@ import Button from "../shared/semantic/Button";
 const SubscriptionBanner: FC = () => {
     return (
             <Container className="bg-primary-dark py-12">
-                <Flex direction="col" items="center" className='max-w-[50%] mx-auto space-y-6'>
+                <Flex direction="col" items="center" className='max-w-[90%] text-center lg:max-w-[50%] mx-auto space-y-6'>
                     <Heading as="h2" variant="section" className="text-text-inverted">Stay Connected</Heading>
                     <Text as="p" variant="body" className="text-text-inverted">Subscribe to our weekly newsletter to receive updates on events, sermons, and church announcements.</Text>
                     <Flex direction="col" gap={4} className="w-full">

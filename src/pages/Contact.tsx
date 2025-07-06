@@ -24,36 +24,36 @@ const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3233.
 
 const Contact = () => {
     const ContactBanner = (
-        <Container className="bg-bg-primary rounded max-w-[40%] shadow-lg py-6">
-            <Flex direction="row" justify="between" items="center" gap={6}>
-                <Flex direction="col" gap={4} className="max-w-[40%]">
+        <Container className="bg-bg-primary rounded max-w-[90%] lg:max-w-[60%] shadow-lg py-6">
+            <Flex direction="col" className="md:flex-row gap-2 lg:gap-6" justify="between" items="center">
+                <Flex direction="row" className="md:flex-col md:max-w-[40%] gap-4 justify-center items-center lg:gap-4">
                     <Heading as="h2" variant="banner">Upcoming Events</Heading>
                     <Text variant="body">We're here to answer any questions you may have</Text>
                 </Flex>
-                <Flex direction="row" gap={12} className="text-center">
-                    <Flex direction="col" className="items-center space-y-3">
-                        <Phone className="w-8 h-8 text-primary-dark" />
+                <Flex direction="col" className="md:flex-row text-center items-center justify-center gap-4 lg:gap-12">
+                    <Flex direction="row" justify="center" className="gap-4 md:gap-0 md:flex-col text-center items-center space-y-3">
+                        <Phone className="w-8 h-8 m-0 text-primary-dark" />
                         {/* CardHeader */}
-                        <Heading as="h3" variant="section">Phone</Heading>
+                        <Heading as="h3" variant="section" className="hidden md:block">Phone</Heading>
                         {/* Description */}
                         <Text as="p" variant="body">
                             (919) 787-3317
                         </Text>
                     </Flex>
-                    <Flex direction="col" className="items-center space-y-3">
+                    <Flex direction="row" className="gap-4 md:gap-0 md:flex-col justify-center items-center space-y-3">
 
-                        <Email className="w-8 h-8 text-primary-dark" />
+                        <Email className="w-8 h-8 m-0 text-primary-dark" />
                         {/* CardHeader */}
-                        <Heading as="h3" variant="section">Email</Heading>
+                        <Heading as="h3" variant="section" className="hidden md:block">Email</Heading>
                         {/* Description */}
                         <Text as="p" variant="body">
                             CreedmoorRoadBaptist@gmail.com
                         </Text>
                     </Flex>
-                    <Flex direction="col" className="items-center space-y-3">
-                        <LocationPin className="w-8 h-8 text-primary-dark" />
+                    <Flex direction="row" className="gap-4 md:gap-0 md:flex-col justify-center items-center space-y-3">
+                        <LocationPin className="w-8 h-8 m-0 text-primary-dark" />
                         {/* CardHeader */}
-                        <Heading as="h3" variant="section">Address</Heading>
+                        <Heading as="h3" variant="section" className="hidden md:block">Address</Heading>
                         {/* Description */}
                         <Text as="p" variant="body">
                             6001 Creedmoor Rd, Raleigh, NC 27612
@@ -66,7 +66,7 @@ const Contact = () => {
 
     return (
         <PageLayout pageId="contact" banner={ContactBanner}>
-            <Flex gap={12} direction="row" className="max-w-[70%] mx-auto py-24">
+            <Flex gap={12} direction="col" className="md:flex-row max-w-[90%] xl:max-w-[80%] mx-auto py-24">
                 <Card className="col-span-5 px-0 py-0 min-w-[60%]">
                     <Flex direction="col" gap={4} className="bg-primary-dark p-8">
                         <Heading variant="banner" className="text-text-inverted" as="h2">Send Us a Message</Heading>
@@ -143,35 +143,35 @@ const Contact = () => {
                         <Heading variant="section">Connect With Us</Heading>
                         <Flex direction="row" gap={4}>
                             <IconContainer variant="primary">
-                                <Facebook className="text-bg-secondary"/>
+                                <Facebook className="text-bg-secondary" />
                             </IconContainer>
                             <IconContainer variant="error">
-                                <YouTube className="text-bg-secondary"/>
+                                <YouTube className="text-bg-secondary" />
                             </IconContainer>
                         </Flex>
                     </Card>
                 </Flex>
             </Flex>
-             <Container className="text-center items-center bg-bg-section mt-8 py-8 space-y-8">
+            <Container className="text-center items-center bg-bg-section mt-8 py-8 space-y-8 min-w-full">
                 <Heading variant="section">Find Us</Heading>
                 <Text variant="body">Conveniently located on Creedmoor Road in Raleigh, NC (Hwy 50). We are a short distance from Interstates 540 and 440, and a little over a mile from Crabtree Valley Mall, making it easy to find and reach us.</Text>
-                     <div className="max-w-4xl min-h-[500px] mx-auto">
-               <Card className="px-0 py-0">
-                 <Grid>
-                    <MapEmbed embedUrl={mapEmbedUrl} title="Location of Creedmoor Road Baptist Church" />
-                    <Flex direction="row" justify="between" className="bg-bg-secondary text-left p-4" >
-                        <Flex direction="col" >
-                            <Heading variant="section">Creemoor Road Baptist Church</Heading>
-                            <Text variant="body">6001 Creedmoor Rd, Raleigh, NC 27612</Text>
-                        </Flex>
-                        <Button className="text-norwrap">Get Directions</Button>
-                    </Flex>
-                </Grid>
-               </Card>
-    </div>
+                <div className="max-w-4xl min-h-[500px] mx-auto">
+                    <Card className="px-0 py-0">
+                        <Grid>
+                            <MapEmbed embedUrl={mapEmbedUrl} title="Location of Creedmoor Road Baptist Church" />
+                            <Flex direction="row" justify="between" className="bg-bg-secondary text-left p-4" >
+                                <Flex direction="col" >
+                                    <Heading variant="section">Creemoor Road Baptist Church</Heading>
+                                    <Text variant="body">6001 Creedmoor Rd, Raleigh, NC 27612</Text>
+                                </Flex>
+                                <Button className="text-nowrap">Get Directions</Button>
+                            </Flex>
+                        </Grid>
+                    </Card>
+                </div>
 
-             </Container>
-             <PrayerBanner />
+            </Container>
+            <PrayerBanner />
         </PageLayout>
     )
 }

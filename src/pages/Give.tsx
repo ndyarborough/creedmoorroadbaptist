@@ -17,14 +17,14 @@ const Give = () => {
     const realmTriggerUrl = 'https://onrealm.org/CreedmoorRoadBa/give/now'; // The trigger URL from the email
     return (
         <PageLayout pageId="give">
-            <Flex direction="col" gap={8} className="py-8 lg:py-12 max-w-[60%] mx-auto">
+            <Flex direction="col" gap={8} className="py-8 lg:py-12 max-w-[90%] lg:max-w-[60%] mx-auto">
                 {/* Supporting Our Ministries */}
                 <Heading variant="content">Supporting Our Ministry</Heading>
                 <Text variant="body">Your generous contributions make it possible for Cornerstone Church to continue its mission of spreading God's love, supporting our community, and growing disciples. We believe that giving is an act of worship and an expression of gratitude for God's blessings in our lives.</Text>
                 <Text variant="body">Whether through tithes, offerings, or special gifts, your financial support enables us to maintain our facilities, fund our ministries, and reach out to those in need. We are committed to being good stewards of every dollar entrusted to us.</Text>
                 {/* Ways to Give */}
                 <Heading variant="banner">Ways to Give</Heading>
-                <Grid className="grid-cols-3 text-center" gap={8}>
+                <Grid className="grid-cols-1 lg:grid-cols-3 text-center" gap={8}>
                     <Card accent="top" accentColor="primary">
                         <IconContainer variant="muted">
                             <Public className="w-8 h-8 text-primary-dark" />

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { collection, addDoc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../lib/firebase';
 import Button from '../shared/semantic/Button';
 import Input from '../shared/semantic/Input';
-import Textarea from '../shared/semantic/Textarea';
 import Checkbox from '../shared/semantic/Checkbox';
 import Flex from '../shared/semantic/Flex';
 import Card from '../shared/semantic/Card';
 import Heading from '../shared/semantic/Heading';
+import Textarea from '../shared/semantic/Textarea';
 
-interface Event {
+interface Group {
   id: string;
   title: string;
   description: string;
@@ -23,8 +23,8 @@ interface Event {
   photoURLs: string[];
 }
 
-const AddEventForm: React.FC = () => {
-  const [formData, setFormData] = useState<Omit<Event, 'id'>>({
+const AddGroupForm: React.FC = () => {
+  const [formData, setFormData] = useState<Omit<Group, 'id'>>({
     title: '',
     description: '',
     date: '',
@@ -61,9 +61,9 @@ const AddEventForm: React.FC = () => {
     }
   };
 
-  const uploadPhotos = async (files: FileList, eventId: string): Promise<string[]> => {
+  const uploadPhotos = async (files: FileList): Promise<string[]> => {
     const uploadPromises = Array.from(files).map(async (file) => {
-      const storageRef = ref(storage, `events/${eventId}/${file.name}`);
+      const storageRef = ref(storage, `groups/${Date.now()}_${file.name}`);
       const snapshot = await uploadBytes(storageRef, file);
       return getDownloadURL(snapshot.ref);
     });
@@ -76,25 +76,19 @@ const AddEventForm: React.FC = () => {
     setLoading(true);
 
     try {
-      // 1. Create the event document in Firestore first to get an ID
-      const eventDocRef = await addDoc(collection(db, 'events'), {
-        ...formData,
-        photoURLs: [] // Initialize with an empty array
-      });
-
-      const eventId = eventDocRef.id;
       let photoURLs: string[] = [];
-
-      // 2. Upload photos if they exist
+      
       if (photos && photos.length > 0) {
-        photoURLs = await uploadPhotos(photos, eventId);
+        photoURLs = await uploadPhotos(photos);
       }
 
-      // 3. Update the event document with the photo URLs
-      await updateDoc(eventDocRef, {
+      const groupData = {
+        ...formData,
         photoURLs
-      });
+      };
 
+      await addDoc(collection(db, 'groups'), groupData);
+      
       // Reset form
       setFormData({
         title: '',
@@ -108,11 +102,11 @@ const AddEventForm: React.FC = () => {
         photoURLs: []
       });
       setPhotos(null);
-
-      alert('Event added successfully!');
+      
+      alert('Group added successfully!');
     } catch (error) {
-      console.error('Error adding event:', error);
-      alert('Failed to add event. Please try again.');
+      console.error('Error adding group:', error);
+      alert('Failed to add group. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -121,7 +115,7 @@ const AddEventForm: React.FC = () => {
   return (
     <Card className="p-6">
       <Heading as="h3" variant="section-subheader" className="mb-4">
-        Add New Event
+        Add New Group
       </Heading>
       
       <form onSubmit={handleSubmit}>
@@ -130,11 +124,11 @@ const AddEventForm: React.FC = () => {
           <Input
             type="text"
             name="title"
-            label="Event Title"
+            label="Group Title"
             value={formData.title}
             onChange={handleInputChange}
             required
-            placeholder="Enter event title"
+            placeholder="Enter group title"
           />
 
           {/* Description */}
@@ -144,7 +138,7 @@ const AddEventForm: React.FC = () => {
             value={formData.description}
             onChange={handleInputChange}
             required
-            placeholder="Enter event description"
+            placeholder="Enter group description"
             rows={4}
           />
 
@@ -202,16 +196,16 @@ const AddEventForm: React.FC = () => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select category</option>
-                <option value="Worship Service">Worship Service</option>
                 <option value="Bible Study">Bible Study</option>
-                <option value="Prayer Meeting">Prayer Meeting</option>
+                <option value="Prayer Group">Prayer Group</option>
                 <option value="Fellowship">Fellowship</option>
                 <option value="Ministry">Ministry</option>
                 <option value="Youth">Youth</option>
                 <option value="Children">Children</option>
-                <option value="Outreach">Outreach</option>
-                <option value="Special Event">Special Event</option>
-                <option value="Conference">Conference</option>
+                <option value="Women">Women</option>
+                <option value="Men">Men</option>
+                <option value="Seniors">Seniors</option>
+                <option value="Small Group">Small Group</option>
               </select>
             </div>
           </Flex>
@@ -229,7 +223,7 @@ const AddEventForm: React.FC = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <p className="text-sm text-gray-500 mt-1">
-              You can select multiple photos for this event
+              You can select multiple photos for this group
             </p>
           </div>
 
@@ -242,7 +236,7 @@ const AddEventForm: React.FC = () => {
               onChange={handleInputChange}
             />
             <label className="text-sm font-medium text-gray-700">
-              This is a recurring event
+              This is a recurring group
             </label>
           </Flex>
 
@@ -252,7 +246,7 @@ const AddEventForm: React.FC = () => {
             disabled={loading}
             className="w-full"
           >
-            {loading ? 'Adding Event...' : 'Add Event'}
+            {loading ? 'Adding Group...' : 'Add Group'}
           </Button>
         </Flex>
       </form>
@@ -260,4 +254,4 @@ const AddEventForm: React.FC = () => {
   );
 };
 
-export default AddEventForm;
+export default AddGroupForm;

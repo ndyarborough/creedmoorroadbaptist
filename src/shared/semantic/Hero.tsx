@@ -34,7 +34,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, imageUrl, banner, children
       </div>
     </div>
     {banner && (
-      <div className="w-full absolute bottom-0 left-0 right-0 translate-y-1/2">
+      <div className="w-full absolute bottom-0 left-0 right-0 translate-y-3/4 lg:translate-y-1/2">
           {banner}
       </div>
     )}
