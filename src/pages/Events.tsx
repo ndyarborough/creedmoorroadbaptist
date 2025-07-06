@@ -118,7 +118,7 @@ const Events = () => {
 
     const EventsBanner = (
         <Container className="bg-bg-primary rounded max-w-[90%] lg:w-[60%] shadow-lg p-6">
-            <Flex direction="row" justify="between" gap={6}>
+            <Flex direction="row" justify="between" items="center" gap={6}>
                 <Heading as="h2" variant="section">Upcoming Events</Heading>
                 <Flex direction="row" gap={4} className="max-w-fit">
                     <Button>Calendar View</Button>
