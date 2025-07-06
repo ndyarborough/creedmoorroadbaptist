@@ -19,7 +19,7 @@ const Ministries: FC = () => {
                 <Grid gap={8} className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-row-3 lg:py-12">
                     <Card className="px-0 py-0">
                         {/* image */}
-                        <img src={'/creed_kids.png'} className="m-0"></img>
+                        <img src={'/creedmoorroadbaptist/creed_kids.png'} className="m-0"></img>
                         <Flex direction="col" className="p-6 space-y-4  text-left">
                             {/* category and date row */}
                             <Flex direction="row" justify="between">
@@ -40,7 +40,7 @@ const Ministries: FC = () => {
                     </Card>
                     <Card className="px-0 py-0">
                         {/* image */}
-                        <img src={'/creed_kids.png'} className="m-0"></img>
+                        <img src={'/creedmoorroadbaptist/creed_kids.png'} className="m-0"></img>
                         <Flex direction="col" className="p-6 space-y-4  text-left">
                             {/* category and date row */}
                             <Flex direction="row" justify="between">
@@ -61,7 +61,7 @@ const Ministries: FC = () => {
                     </Card>
                     <Card className="px-0 py-0">
                         {/* image */}
-                        <img src={'/creed_kids.png'} className="m-0"></img>
+                        <img src={'/creedmoorroadbaptist/creed_kids.png'} className="m-0"></img>
                         <Flex direction="col" className="p-6 space-y-4  text-left">
                             {/* category and date row */}
                             <Flex direction="row" justify="between">
