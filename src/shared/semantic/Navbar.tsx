@@ -66,7 +66,7 @@ export default function Navbar() {
             onClick={() => setOpen(false)}
           />
           {/* panel */}
-          <div className="relative ml-auto w-64 bg-off-white p-4 flex flex-col space-y-4">
+          <div className="relative ml-auto w-64 bg-bg-secondary p-4 flex flex-col space-y-4">
             <button
               onClick={() => setOpen(false)}
               className="self-end p-1 text-gray-body"
