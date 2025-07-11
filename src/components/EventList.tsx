@@ -23,7 +23,11 @@ interface EventGroup {
   events: Event[];
 }
 
-const EventList = () => {
+interface EventListProps {
+  onEditEvent: (event: Event) => void;
+}
+
+const EventList: React.FC<EventListProps> = ({ onEditEvent }) => {
   const [events, setEvents] = useState<Event[]>([]);
   const [groupedEvents, setGroupedEvents] = useState<EventGroup[]>([]);
   const [loading, setLoading] = useState(true);
@@ -170,14 +174,23 @@ const EventList = () => {
                 {group.events.map(event => (
                   <div key={event.id} className="relative">
                     <EventCard event={event} />
-                    {/* Delete button - only show in admin view */}
-                    <Button
-                      onClick={() => handleDeleteEvent(event.id)}
-                      variant="danger"
-                      className="absolute top-2 right-2 text-xs px-2 py-1"
-                    >
-                      Delete
-                    </Button>
+                    {/* Action buttons */}
+                    <div className="absolute top-2 right-2 flex gap-2">
+                      <Button
+                        onClick={() => onEditEvent(event)}
+                        variant="primary"
+                        className="text-xs px-2 py-1"
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        onClick={() => handleDeleteEvent(event.id)}
+                        variant="danger"
+                        className="text-xs px-2 py-1"
+                      >
+                        Delete
+                      </Button>
+                    </div>
                   </div>
                 ))}
               </div>

@@ -5,7 +5,7 @@ import type { ComponentType } from 'react'
 // Lazy load components
 const Home = lazy(() => import('../pages/Home'))
 const Events = lazy(() => import('../pages/Events'))
-const Groups = lazy(() => import('../pages/SmallGroups'))
+// const Groups = lazy(() => import('../pages/SmallGroups'))
 const Giving = lazy(() => import('../pages/Give'))
 const Sermons = lazy(() => import('../pages/Messages'))
 const Contact = lazy(() => import('../pages/Contact'))
@@ -37,7 +37,7 @@ const AppRoutes = () => (
       <Route path="/" element={withSuspense(Home)} />
       <Route path="/events" element={withSuspense(Events)} />
       <Route path="/about" element={withSuspense(About)} />
-      <Route path="/smallGroups" element={withSuspense(Groups)} />
+      {/* <Route path="/smallGroups" element={withSuspense(Groups)} /> */}
       <Route path="/give" element={withSuspense(Giving)} />
       <Route path="/messages" element={withSuspense(Sermons)} />
       <Route path="/contact" element={withSuspense(Contact)} />

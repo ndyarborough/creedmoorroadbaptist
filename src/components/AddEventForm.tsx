@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { collection, addDoc, updateDoc } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
+import { collection, addDoc, updateDoc, doc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../lib/firebase';
 import Button from '../shared/semantic/Button';
@@ -9,22 +9,15 @@ import Checkbox from '../shared/semantic/Checkbox';
 import Flex from '../shared/semantic/Flex';
 import Card from '../shared/semantic/Card';
 import Heading from '../shared/semantic/Heading';
+import type { Event, EventFormData } from '../shared/types';
 
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  location: string;
-  category: string;
-  recurring: boolean;
-  photoURLs: string[];
+interface AddEventFormProps {
+  eventToEdit: Event | null;
+  onFormSubmit: () => void; // Callback to reset the parent state
 }
 
-const AddEventForm: React.FC = () => {
-  const [formData, setFormData] = useState<Omit<Event, 'id'>>({
+const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }) => {
+  const [formData, setFormData] = useState<EventFormData>({
     title: '',
     description: '',
     date: '',
@@ -38,20 +31,36 @@ const AddEventForm: React.FC = () => {
   const [photos, setPhotos] = useState<FileList | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const isEditMode = eventToEdit !== null;
+
+  // Populate form when an event is selected for editing
+  useEffect(() => {
+    if (isEditMode) {
+      setFormData(eventToEdit);
+    } else {
+      // Reset form if eventToEdit is null (e.g., after an edit is completed)
+      setFormData({
+        title: '',
+        description: '',
+        date: '',
+        startTime: '',
+        endTime: '',
+        location: '',
+        category: '',
+        recurring: false,
+        photoURLs: []
+      });
+    }
+  }, [eventToEdit, isEditMode]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     
     if (type === 'checkbox') {
       const checked = (e.target as HTMLInputElement).checked;
-      setFormData(prev => ({
-        ...prev,
-        [name]: checked
-      }));
+      setFormData((prev: EventFormData) => ({ ...prev, [name]: checked }));
     } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
+      setFormData((prev: EventFormData) => ({ ...prev, [name]: value }));
     }
   };
 
@@ -67,7 +76,6 @@ const AddEventForm: React.FC = () => {
       const snapshot = await uploadBytes(storageRef, file);
       return getDownloadURL(snapshot.ref);
     });
-    
     return Promise.all(uploadPromises);
   };
 
@@ -76,43 +84,45 @@ const AddEventForm: React.FC = () => {
     setLoading(true);
 
     try {
-      // 1. Create the event document in Firestore first to get an ID
-      const eventDocRef = await addDoc(collection(db, 'events'), {
-        ...formData,
-        photoURLs: [] // Initialize with an empty array
-      });
+      let finalPhotoURLs = formData.photoURLs || [];
 
-      const eventId = eventDocRef.id;
-      let photoURLs: string[] = [];
+      if (isEditMode) {
+        // UPDATE LOGIC
+        const eventId = eventToEdit.id;
+        if (photos && photos.length > 0) {
+          const newPhotoURLs = await uploadPhotos(photos, eventId);
+          finalPhotoURLs = [...finalPhotoURLs, ...newPhotoURLs];
+        }
+        
+        const eventDocRef = doc(db, 'events', eventId);
+        await updateDoc(eventDocRef, {
+          ...formData,
+          photoURLs: finalPhotoURLs,
+        });
+        alert('Event updated successfully!');
 
-      // 2. Upload photos if they exist
-      if (photos && photos.length > 0) {
-        photoURLs = await uploadPhotos(photos, eventId);
+      } else {
+        // CREATE LOGIC
+        const eventDocRef = await addDoc(collection(db, 'events'), {
+          ...formData,
+          photoURLs: [], // Initialize empty
+        });
+
+        const eventId = eventDocRef.id;
+        if (photos && photos.length > 0) {
+          finalPhotoURLs = await uploadPhotos(photos, eventId);
+          await updateDoc(eventDocRef, { photoURLs: finalPhotoURLs });
+        }
+        alert('Event added successfully!');
       }
 
-      // 3. Update the event document with the photo URLs
-      await updateDoc(eventDocRef, {
-        photoURLs
-      });
-
-      // Reset form
-      setFormData({
-        title: '',
-        description: '',
-        date: '',
-        startTime: '',
-        endTime: '',
-        location: '',
-        category: '',
-        recurring: false,
-        photoURLs: []
-      });
+      // Reset form and parent state
+      onFormSubmit();
       setPhotos(null);
 
-      alert('Event added successfully!');
     } catch (error) {
-      console.error('Error adding event:', error);
-      alert('Failed to add event. Please try again.');
+      console.error('Error saving event:', error);
+      alert('Failed to save event. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -121,12 +131,11 @@ const AddEventForm: React.FC = () => {
   return (
     <Card className="p-6">
       <Heading as="h3" variant="section-subheader" className="mb-4">
-        Add New Event
+        {isEditMode ? 'Edit Event' : 'Add New Event'}
       </Heading>
       
       <form onSubmit={handleSubmit}>
         <Flex direction="col" gap={4}>
-          {/* Title */}
           <Input
             type="text"
             name="title"
@@ -134,73 +143,33 @@ const AddEventForm: React.FC = () => {
             value={formData.title}
             onChange={handleInputChange}
             required
-            placeholder="Enter event title"
           />
-
-          {/* Description */}
           <Textarea
             name="description"
             label="Description"
             value={formData.description}
             onChange={handleInputChange}
             required
-            placeholder="Enter event description"
             rows={4}
           />
-
-          {/* Date and Time Row */}
           <Flex direction="row" gap={4}>
-            <Input
-              type="date"
-              name="date"
-              label="Date"
-              value={formData.date}
-              onChange={handleInputChange}
-              required
-            />
-            
-            <Input
-              type="time"
-              name="startTime"
-              label="Start Time"
-              value={formData.startTime}
-              onChange={handleInputChange}
-              required
-            />
-            
-            <Input
-              type="time"
-              name="endTime"
-              label="End Time"
-              value={formData.endTime}
-              onChange={handleInputChange}
-              required
-            />
+            <Input type="date" name="date" label="Date" value={formData.date} onChange={handleInputChange} required />
+            <Input type="time" name="startTime" label="Start Time" value={formData.startTime} onChange={handleInputChange} required />
+            <Input type="time" name="endTime" label="End Time" value={formData.endTime} onChange={handleInputChange} required />
           </Flex>
-
-          {/* Location and Category Row */}
           <Flex direction="row" gap={4}>
-            <Input
-              type="text"
-              name="location"
-              label="Location"
-              value={formData.location}
-              onChange={handleInputChange}
-              required
-              placeholder="Enter location"
-            />
-            
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Category
-              </label>
-              <select
-                name="category"
-                value={formData.category}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
+              <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+              <select name="location" value={formData.location} onChange={handleInputChange} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Select location</option>
+                <option value="Sanctuary">Sanctuary</option>
+                <option value="Fellowship Hall">Fellowship Hall</option>
+                <option value="Library">Library</option>
+              </select>
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+              <select name="category" value={formData.category} onChange={handleInputChange} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="">Select category</option>
                 <option value="Worship Service">Worship Service</option>
                 <option value="Bible Study">Bible Study</option>
@@ -215,45 +184,23 @@ const AddEventForm: React.FC = () => {
               </select>
             </div>
           </Flex>
-
-          {/* Photos */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Photos (Optional)
-            </label>
-            <input
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handlePhotoChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <p className="text-sm text-gray-500 mt-1">
-              You can select multiple photos for this event
-            </p>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Add Photos</label>
+            <input type="file" multiple accept="image/*" onChange={handlePhotoChange} className="w-full px-3 py-2 border border-gray-300 rounded-md" />
           </div>
-
-          {/* Recurring Checkbox */}
           <Flex direction="row" items="center" gap={2}>
-            <Checkbox
-              label='Recurring'
-              name="recurring"
-              checked={formData.recurring}
-              onChange={handleInputChange}
-            />
-            <label className="text-sm font-medium text-gray-700">
-              This is a recurring event
-            </label>
+            <Checkbox label='Recurring' name="recurring" checked={formData.recurring} onChange={handleInputChange} />
           </Flex>
-
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            disabled={loading}
-            className="w-full"
-          >
-            {loading ? 'Adding Event...' : 'Add Event'}
-          </Button>
+          <Flex direction="row" gap={4}>
+            <Button type="submit" disabled={loading} className="flex-1">
+              {loading ? 'Saving...' : (isEditMode ? 'Update Event' : 'Add Event')}
+            </Button>
+            {isEditMode && (
+              <Button variant="outline" onClick={onFormSubmit} className="flex-1">
+                Cancel Edit
+              </Button>
+            )}
+          </Flex>
         </Flex>
       </form>
     </Card>
