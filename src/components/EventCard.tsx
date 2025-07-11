@@ -1,21 +1,9 @@
 import React from 'react';
-import { Schedule, LocationOn } from '@mui/icons-material';
+import { Schedule, LocationOn, Repeat } from '@mui/icons-material';
 import Heading from '../shared/semantic/Heading';
 import Flex from '../shared/semantic/Flex';
 import Tag from '../shared/semantic/Tag';
-
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  location: string;
-  category: string;
-  recurring: boolean;
-  photoURLs: string[];
-}
+import type { Event, RecurringDetails } from '../shared/types';
 
 interface EventCardProps {
   event: Event;
@@ -38,6 +26,33 @@ const EventCard: React.FC<EventCardProps> = ({ event, isCompact = false }) => {
     const ampm = hour >= 12 ? 'PM' : 'AM';
     const displayHour = hour % 12 || 12;
     return `${displayHour}:${minutes} ${ampm}`;
+  };
+
+  const getRecurringText = (details?: RecurringDetails): string => {
+    if (!details) return '';
+    
+    const { frequency, interval, endType, endAfter, endDate } = details;
+    
+    let text = '';
+    
+    // Frequency part
+    if (frequency === 'weekly') {
+      text = interval === 1 ? 'Weekly' : `Every ${interval} weeks`;
+    } else if (frequency === 'monthly') {
+      text = interval === 1 ? 'Monthly' : `Every ${interval} months`;
+    } else if (frequency === 'custom') {
+      text = `Every ${interval} days`;
+    }
+    
+    // End condition part
+    if (endType === 'after' && endAfter) {
+      text += ` (${endAfter} times)`;
+    } else if (endType === 'until' && endDate) {
+      const endDateObj = new Date(endDate);
+      text += ` (until ${endDateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })})`;
+    }
+    
+    return text;
   };
 
   // Compact card for dense listing
@@ -78,8 +93,13 @@ const EventCard: React.FC<EventCardProps> = ({ event, isCompact = false }) => {
                 <LocationOn className="w-4 h-4" />
                 <span>{event.location}</span>
               </div>
-              {event.recurring && (
-                <span className="text-primary-base font-medium">Recurring</span>
+              {event.recurring && event.recurringDetails && (
+                <div className="flex items-center gap-1">
+                  <Repeat className="w-4 h-4" />
+                  <span className="text-primary-base font-medium">
+                    {getRecurringText(event.recurringDetails)}
+                  </span>
+                </div>
               )}
             </div>
           </div>
@@ -122,6 +142,14 @@ const EventCard: React.FC<EventCardProps> = ({ event, isCompact = false }) => {
               <LocationOn />
               <span>{event.location}</span>
             </Flex>
+            {event.recurring && event.recurringDetails && (
+              <Flex direction="row" items="center" gap={2}>
+                <Repeat />
+                <span className="text-primary-base font-medium">
+                  {getRecurringText(event.recurringDetails)}
+                </span>
+              </Flex>
+            )}
           </Flex>
         </Flex>
       </Flex>

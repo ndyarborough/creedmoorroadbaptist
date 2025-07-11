@@ -5,19 +5,7 @@ import EventCard from './EventCard';
 import Button from '../shared/semantic/Button';
 import Heading from '../shared/semantic/Heading';
 import Flex from '../shared/semantic/Flex';
-
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  location: string;
-  category: string;
-  recurring: boolean;
-  photoURLs: string[];
-}
+import type { Event } from '../shared/types';
 
 interface EventGroup {
   title: string;
@@ -133,11 +121,11 @@ const EventList: React.FC<EventListProps> = ({ onEditEvent }) => {
   };
 
   const handleDuplicateEvent = (event: Event) => {
-    const duplicatedEvent = {
+    const duplicatedEvent: Event = {
       ...event,
       id: '', // Will be assigned by Firebase
       title: `${event.title} (Copy)`,
-      date: '' // User will need to set a new date
+      date: '', // User will need to set a new date
     };
     onEditEvent(duplicatedEvent);
   };

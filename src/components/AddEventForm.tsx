@@ -11,7 +11,7 @@ import Flex from '../shared/semantic/Flex';
 import Card from '../shared/semantic/Card';
 import Heading from '../shared/semantic/Heading';
 import SectionSubheader from '../shared/semantic/SectionSubheader';
-import type { Event, EventFormData } from '../shared/types';
+import type { Event, EventFormData, RecurringDetails } from '../shared/types';
 
 interface AddEventFormProps {
   eventToEdit: Event | null;
@@ -28,6 +28,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
     location: '',
     category: '',
     recurring: false,
+    recurringDetails: undefined,
     photoURLs: []
   });
   const [photos, setPhotos] = useState<FileList | null>(null);
@@ -59,6 +60,26 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
     { label: 'Conference', value: 'Conference' },
   ];
 
+  // Recurring frequency options
+  const frequencyOptions = [
+    { label: 'Weekly', value: 'weekly' },
+    { label: 'Monthly', value: 'monthly' },
+    { label: 'Custom', value: 'custom' },
+  ];
+
+  // End type options
+  const endTypeOptions = [
+    { label: 'Never ends', value: 'never' },
+    { label: 'After number of occurrences', value: 'after' },
+    { label: 'Until specific date', value: 'until' },
+  ];
+
+  // Monthly type options
+  const monthlyTypeOptions = [
+    { label: 'Same date each month', value: 'date' },
+    { label: 'Same day of week each month', value: 'day' },
+  ];
+
   // Populate form when an event is selected for editing
   useEffect(() => {
     if (isEditMode) {
@@ -75,6 +96,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
         location: '',
         category: '',
         recurring: false,
+        recurringDetails: undefined,
         photoURLs: []
       });
       setMessage(null);
@@ -101,10 +123,38 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
     
     if (type === 'checkbox') {
       const checked = (e.target as HTMLInputElement).checked;
-      setFormData((prev: EventFormData) => ({ ...prev, [name]: checked }));
+      setFormData((prev: EventFormData) => {
+        const newData = { ...prev, [name]: checked };
+        
+        // Reset recurring details if unchecking recurring
+        if (name === 'recurring' && !checked) {
+          newData.recurringDetails = undefined;
+        }
+        
+        // Initialize recurring details if checking recurring
+        if (name === 'recurring' && checked && !prev.recurringDetails) {
+          newData.recurringDetails = {
+            frequency: 'weekly',
+            interval: 1,
+            endType: 'never',
+          };
+        }
+        
+        return newData;
+      });
     } else {
       setFormData((prev: EventFormData) => ({ ...prev, [name]: value }));
     }
+  };
+
+  const handleRecurringChange = (field: keyof RecurringDetails, value: any) => {
+    setFormData((prev: EventFormData) => ({
+      ...prev,
+      recurringDetails: {
+        ...prev.recurringDetails!,
+        [field]: value,
+      },
+    }));
   };
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,6 +196,22 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
       setMessage({ type: 'error', text: 'Please select a category.' });
       return false;
     }
+    
+    // Validate recurring details if recurring is enabled
+    if (formData.recurring && formData.recurringDetails) {
+      const { endType, endAfter, endDate } = formData.recurringDetails;
+      
+      if (endType === 'after' && (!endAfter || endAfter < 1)) {
+        setMessage({ type: 'error', text: 'Please specify number of occurrences.' });
+        return false;
+      }
+      
+      if (endType === 'until' && !endDate) {
+        setMessage({ type: 'error', text: 'Please select an end date.' });
+        return false;
+      }
+    }
+    
     return true;
   };
 
@@ -351,6 +417,102 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
             />
           </div>
         </div>
+
+        {/* Recurring Details Section - Only show if recurring is checked */}
+        {formData.recurring && (
+          <div className="space-y-3">
+            <SectionSubheader className="text-text-primary text-sm font-semibold">
+              Recurring Details
+            </SectionSubheader>
+            
+            <div className="space-y-3 bg-bg-section p-4 rounded-lg border border-border-primary">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-text-primary">
+                    Frequency
+                  </label>
+                  <select 
+                    value={formData.recurringDetails?.frequency || 'weekly'} 
+                    onChange={(e) => handleRecurringChange('frequency', e.target.value)}
+                    className="w-full px-3 py-2 border border-border-primary rounded-lg bg-bg-secondary text-text-primary text-sm"
+                  >
+                    {frequencyOptions.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                
+                <Input
+                  type="number"
+                  label="Repeat Every"
+                  value={formData.recurringDetails?.interval || 1}
+                  onChange={(e) => handleRecurringChange('interval', parseInt(e.target.value))}
+                  min="1"
+                  className="text-sm"
+                />
+              </div>
+
+              {formData.recurringDetails?.frequency === 'monthly' && (
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-text-primary">
+                    Monthly Pattern
+                  </label>
+                  <select 
+                    value={formData.recurringDetails?.monthlyType || 'date'} 
+                    onChange={(e) => handleRecurringChange('monthlyType', e.target.value)}
+                    className="w-full px-3 py-2 border border-border-primary rounded-lg bg-bg-secondary text-text-primary text-sm"
+                  >
+                    {monthlyTypeOptions.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              <div>
+                <label className="block text-sm font-medium mb-2 text-text-primary">
+                  End Condition
+                </label>
+                <select 
+                  value={formData.recurringDetails?.endType || 'never'} 
+                  onChange={(e) => handleRecurringChange('endType', e.target.value)}
+                  className="w-full px-3 py-2 border border-border-primary rounded-lg bg-bg-secondary text-text-primary text-sm"
+                >
+                  {endTypeOptions.map(option => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {formData.recurringDetails?.endType === 'after' && (
+                <Input
+                  type="number"
+                  label="Number of Occurrences"
+                  value={formData.recurringDetails?.endAfter || ''}
+                  onChange={(e) => handleRecurringChange('endAfter', parseInt(e.target.value))}
+                  min="1"
+                  className="text-sm"
+                />
+              )}
+
+              {formData.recurringDetails?.endType === 'until' && (
+                <Input
+                  type="date"
+                  label="End Date"
+                  value={formData.recurringDetails?.endDate || ''}
+                  onChange={(e) => handleRecurringChange('endDate', e.target.value)}
+                  className="text-sm"
+                />
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Action Buttons */}
         <div className="pt-4 border-t border-border-primary">
