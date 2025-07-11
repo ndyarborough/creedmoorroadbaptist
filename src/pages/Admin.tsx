@@ -32,21 +32,43 @@ const Admin = () => {
   };
 
   return (
-    <Container className="py-8">
-      <Heading as="h1" variant="page">Admin Dashboard</Heading>
-      <p>Welcome to the admin dashboard.</p>
+    <div className="min-h-screen bg-bg-primary">
+      <Container className="py-6">
+        <div className="max-w-[1400px] mx-auto">
+          {/* Header Section */}
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <Heading as="h1" variant="content" className="text-text-primary">
+                Admin Dashboard
+              </Heading>
+              <p className="text-text-secondary mt-1">
+                Manage your church events and activities
+              </p>
+            </div>
+            <Button onClick={handleLogout} variant="outline" className="px-4 py-2">
+              Logout
+            </Button>
+          </div>
 
-      <Flex direction="row" gap={8} className="max-w-[90%] mx-auto mt-8">
-        <div className="mt-8">
-          <AddEventForm eventToEdit={eventToEdit} onFormSubmit={handleFormSubmit} />
+          {/* Main Content Area */}
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 h-[calc(100vh-16rem)]">
+            {/* Form Section - Takes 35% of width on xl screens */}
+            <div className="xl:col-span-4 xl:h-full xl:overflow-y-auto">
+              <div className="xl:pr-2">
+                <AddEventForm eventToEdit={eventToEdit} onFormSubmit={handleFormSubmit} />
+              </div>
+            </div>
+            
+            {/* Events List Section - Takes 65% of width on xl screens */}
+            <div className="xl:col-span-8 xl:h-full xl:overflow-y-auto">
+              <div className="xl:pr-2">
+                <EventList onEditEvent={handleEditEvent} />
+              </div>
+            </div>
+          </div>
         </div>
-        <EventList onEditEvent={handleEditEvent} />
-      </Flex>
-
-      <Button onClick={handleLogout} className="mt-8">
-        Logout
-      </Button>
-    </Container>
+      </Container>
+    </div>
   );
 };
 

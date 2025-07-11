@@ -6,9 +6,11 @@ import Button from '../shared/semantic/Button';
 import Input from '../shared/semantic/Input';
 import Textarea from '../shared/semantic/Textarea';
 import Checkbox from '../shared/semantic/Checkbox';
+import Dropdown from '../shared/semantic/Dropdown';
 import Flex from '../shared/semantic/Flex';
 import Card from '../shared/semantic/Card';
 import Heading from '../shared/semantic/Heading';
+import SectionSubheader from '../shared/semantic/SectionSubheader';
 import type { Event, EventFormData } from '../shared/types';
 
 interface AddEventFormProps {
@@ -30,13 +32,38 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
   });
   const [photos, setPhotos] = useState<FileList | null>(null);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   const isEditMode = eventToEdit !== null;
+
+  // Location options for dropdown
+  const locationOptions = [
+    { label: 'Select location', value: '' },
+    { label: 'Sanctuary', value: 'Sanctuary' },
+    { label: 'Fellowship Hall', value: 'Fellowship Hall' },
+    { label: 'Library', value: 'Library' },
+  ];
+
+  // Category options for dropdown
+  const categoryOptions = [
+    { label: 'Select category', value: '' },
+    { label: 'Worship Service', value: 'Worship Service' },
+    { label: 'Bible Study', value: 'Bible Study' },
+    { label: 'Prayer Meeting', value: 'Prayer Meeting' },
+    { label: 'Fellowship', value: 'Fellowship' },
+    { label: 'Ministry', value: 'Ministry' },
+    { label: 'Youth', value: 'Youth' },
+    { label: 'Children', value: 'Children' },
+    { label: 'Outreach', value: 'Outreach' },
+    { label: 'Special Event', value: 'Special Event' },
+    { label: 'Conference', value: 'Conference' },
+  ];
 
   // Populate form when an event is selected for editing
   useEffect(() => {
     if (isEditMode) {
       setFormData(eventToEdit);
+      setMessage(null);
     } else {
       // Reset form if eventToEdit is null (e.g., after an edit is completed)
       setFormData({
@@ -50,11 +77,27 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
         recurring: false,
         photoURLs: []
       });
+      setMessage(null);
     }
   }, [eventToEdit, isEditMode]);
 
+  // Clear message after 5 seconds
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage(null);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
+    
+    // Clear message when user starts typing
+    if (message) {
+      setMessage(null);
+    }
     
     if (type === 'checkbox') {
       const checked = (e.target as HTMLInputElement).checked;
@@ -70,6 +113,42 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
     }
   };
 
+  const validateForm = (): boolean => {
+    if (!formData.title.trim()) {
+      setMessage({ type: 'error', text: 'Please enter an event title.' });
+      return false;
+    }
+    if (!formData.description.trim()) {
+      setMessage({ type: 'error', text: 'Please enter a description.' });
+      return false;
+    }
+    if (!formData.date) {
+      setMessage({ type: 'error', text: 'Please select a date.' });
+      return false;
+    }
+    if (!formData.startTime) {
+      setMessage({ type: 'error', text: 'Please select a start time.' });
+      return false;
+    }
+    if (!formData.endTime) {
+      setMessage({ type: 'error', text: 'Please select an end time.' });
+      return false;
+    }
+    if (formData.startTime >= formData.endTime) {
+      setMessage({ type: 'error', text: 'End time must be after start time.' });
+      return false;
+    }
+    if (!formData.location) {
+      setMessage({ type: 'error', text: 'Please select a location.' });
+      return false;
+    }
+    if (!formData.category) {
+      setMessage({ type: 'error', text: 'Please select a category.' });
+      return false;
+    }
+    return true;
+  };
+
   const uploadPhotos = async (files: FileList, eventId: string): Promise<string[]> => {
     const uploadPromises = Array.from(files).map(async (file) => {
       const storageRef = ref(storage, `events/${eventId}/${file.name}`);
@@ -81,7 +160,13 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+    
     setLoading(true);
+    setMessage(null);
 
     try {
       let finalPhotoURLs = formData.photoURLs || [];
@@ -99,7 +184,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
           ...formData,
           photoURLs: finalPhotoURLs,
         });
-        alert('Event updated successfully!');
+        setMessage({ type: 'success', text: 'Event updated successfully!' });
 
       } else {
         // CREATE LOGIC
@@ -113,7 +198,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
           finalPhotoURLs = await uploadPhotos(photos, eventId);
           await updateDoc(eventDocRef, { photoURLs: finalPhotoURLs });
         }
-        alert('Event added successfully!');
+        setMessage({ type: 'success', text: 'Event added successfully!' });
       }
 
       // Reset form and parent state
@@ -122,20 +207,36 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
 
     } catch (error) {
       console.error('Error saving event:', error);
-      alert('Failed to save event. Please try again.');
+      setMessage({ type: 'error', text: 'Failed to save event. Please try again.' });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Card className="p-6">
-      <Heading as="h3" variant="section-subheader" className="mb-4">
+    <Card className="p-6 w-full max-w-none">
+      <Heading as="h3" variant="section" className="mb-4">
         {isEditMode ? 'Edit Event' : 'Add New Event'}
       </Heading>
       
-      <form onSubmit={handleSubmit}>
-        <Flex direction="col" gap={4}>
+      {/* Message Display */}
+      {message && (
+        <div className={`mb-4 p-3 rounded-lg border ${
+          message.type === 'success' 
+            ? 'bg-green-50 border-green-200 text-green-800' 
+            : 'bg-red-50 border-red-200 text-red-800'
+        }`}>
+          <p className="font-medium text-sm">{message.text}</p>
+        </div>
+      )}
+      
+      <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Basic Information Section */}
+        <div className="space-y-3">
+          <SectionSubheader className="text-text-primary text-sm font-semibold">
+            Basic Information
+          </SectionSubheader>
+          
           <Input
             type="text"
             name="title"
@@ -143,65 +244,135 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ eventToEdit, onFormSubmit }
             value={formData.title}
             onChange={handleInputChange}
             required
+            placeholder="Enter event title"
           />
+          
           <Textarea
             name="description"
             label="Description"
             value={formData.description}
             onChange={handleInputChange}
             required
-            rows={4}
+            rows={3}
+            placeholder="Describe your event..."
           />
-          <Flex direction="row" gap={4}>
-            <Input type="date" name="date" label="Date" value={formData.date} onChange={handleInputChange} required />
-            <Input type="time" name="startTime" label="Start Time" value={formData.startTime} onChange={handleInputChange} required />
-            <Input type="time" name="endTime" label="End Time" value={formData.endTime} onChange={handleInputChange} required />
-          </Flex>
-          <Flex direction="row" gap={4}>
-            <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
-              <select name="location" value={formData.location} onChange={handleInputChange} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">Select location</option>
-                <option value="Sanctuary">Sanctuary</option>
-                <option value="Fellowship Hall">Fellowship Hall</option>
-                <option value="Library">Library</option>
-              </select>
-            </div>
-            <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-              <select name="category" value={formData.category} onChange={handleInputChange} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">Select category</option>
-                <option value="Worship Service">Worship Service</option>
-                <option value="Bible Study">Bible Study</option>
-                <option value="Prayer Meeting">Prayer Meeting</option>
-                <option value="Fellowship">Fellowship</option>
-                <option value="Ministry">Ministry</option>
-                <option value="Youth">Youth</option>
-                <option value="Children">Children</option>
-                <option value="Outreach">Outreach</option>
-                <option value="Special Event">Special Event</option>
-                <option value="Conference">Conference</option>
-              </select>
-            </div>
-          </Flex>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Add Photos</label>
-            <input type="file" multiple accept="image/*" onChange={handlePhotoChange} className="w-full px-3 py-2 border border-gray-300 rounded-md" />
+        </div>
+
+        {/* Date & Time Section */}
+        <div className="space-y-3">
+          <SectionSubheader className="text-text-primary text-sm font-semibold">
+            Date & Time
+          </SectionSubheader>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Input 
+              type="date" 
+              name="date" 
+              label="Date" 
+              value={formData.date} 
+              onChange={handleInputChange} 
+              required
+            />
+            <Input 
+              type="time" 
+              name="startTime" 
+              label="Start Time" 
+              value={formData.startTime} 
+              onChange={handleInputChange} 
+              required
+            />
+            <Input 
+              type="time" 
+              name="endTime" 
+              label="End Time" 
+              value={formData.endTime} 
+              onChange={handleInputChange} 
+              required
+            />
           </div>
-          <Flex direction="row" items="center" gap={2}>
-            <Checkbox label='Recurring' name="recurring" checked={formData.recurring} onChange={handleInputChange} />
-          </Flex>
-          <Flex direction="row" gap={4}>
-            <Button type="submit" disabled={loading} className="flex-1">
+        </div>
+
+        {/* Location & Category Section */}
+        <div className="space-y-3">
+          <SectionSubheader className="text-text-primary text-sm font-semibold">
+            Location & Category
+          </SectionSubheader>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Dropdown
+              name="location"
+              label="Location"
+              value={formData.location}
+              onChange={handleInputChange}
+              options={locationOptions}
+              required
+            />
+            <Dropdown
+              name="category"
+              label="Category"
+              value={formData.category}
+              onChange={handleInputChange}
+              options={categoryOptions}
+              required
+            />
+          </div>
+        </div>
+
+        {/* Additional Options Section */}
+        <div className="space-y-3">
+          <SectionSubheader className="text-text-primary text-sm font-semibold">
+            Additional Options
+          </SectionSubheader>
+          
+          <div className="space-y-3">
+            <div>
+              <label className="block text-sm font-medium mb-2 text-text-primary">
+                Add Photos
+              </label>
+              <input 
+                type="file" 
+                multiple 
+                accept="image/*" 
+                onChange={handlePhotoChange} 
+                className="w-full px-3 py-2 border border-border-primary rounded-lg bg-bg-secondary text-text-primary text-sm file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-sm file:font-medium file:bg-primary-light file:text-primary-dark hover:file:bg-primary-ultralight transition-colors"
+              />
+              {photos && photos.length > 0 && (
+                <p className="text-xs text-text-secondary mt-1">
+                  {photos.length} photo(s) selected
+                </p>
+              )}
+            </div>
+            
+            <Checkbox 
+              label="Recurring Event" 
+              name="recurring" 
+              checked={formData.recurring} 
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="pt-4 border-t border-border-primary">
+          <Flex direction="row" gap={3}>
+            <Button 
+              type="submit" 
+              disabled={loading} 
+              className="flex-1 py-2 font-medium"
+            >
               {loading ? 'Saving...' : (isEditMode ? 'Update Event' : 'Add Event')}
             </Button>
             {isEditMode && (
-              <Button variant="outline" onClick={onFormSubmit} className="flex-1">
+              <Button 
+                variant="outline" 
+                onClick={onFormSubmit} 
+                className="flex-1 py-2 font-medium"
+              >
                 Cancel Edit
               </Button>
             )}
           </Flex>
-        </Flex>
+        </div>
       </form>
     </Card>
   );

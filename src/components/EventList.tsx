@@ -4,6 +4,7 @@ import { db } from '../lib/firebase';
 import EventCard from './EventCard';
 import Button from '../shared/semantic/Button';
 import Heading from '../shared/semantic/Heading';
+import Flex from '../shared/semantic/Flex';
 
 interface Event {
   id: string;
@@ -131,10 +132,20 @@ const EventList: React.FC<EventListProps> = ({ onEditEvent }) => {
     }
   };
 
+  const handleDuplicateEvent = (event: Event) => {
+    const duplicatedEvent = {
+      ...event,
+      id: '', // Will be assigned by Firebase
+      title: `${event.title} (Copy)`,
+      date: '' // User will need to set a new date
+    };
+    onEditEvent(duplicatedEvent);
+  };
+
   if (loading) {
     return (
-      <div className="mt-8">
-        <Heading as="h2" variant="section">
+      <div className="h-full">
+        <Heading as="h2" variant="section" className="mb-4">
           Existing Events
         </Heading>
         <div className="flex justify-center items-center py-8">
@@ -145,48 +156,64 @@ const EventList: React.FC<EventListProps> = ({ onEditEvent }) => {
   }
 
   return (
-    <div className="mt-8">
-      <Heading as="h2" variant="section">
-        Existing Events
-      </Heading>
+    <div className="h-full">
+      <div className="flex items-center justify-between mb-4">
+        <Heading as="h2" variant="section">
+          Existing Events
+        </Heading>
+        <div className="text-sm text-text-secondary">
+          {events.length} {events.length === 1 ? 'event' : 'events'} total
+        </div>
+      </div>
       
       {events.length === 0 ? (
-        <div className="bg-gray-50 p-6 rounded-lg text-center">
-          <p className="text-gray-500 mb-4">No events found.</p>
-          <p className="text-sm text-gray-400">Add your first event using the form above.</p>
+        <div className="bg-bg-section p-6 rounded-lg text-center">
+          <p className="text-text-secondary mb-2">No events found.</p>
+          <p className="text-sm text-text-muted">Add your first event using the form.</p>
         </div>
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-6">
           {groupedEvents.map((group, index) => (
-            <div key={index} className="space-y-4">
+            <div key={index} className="space-y-3">
               {/* Group Header */}
-              <div className="flex items-center gap-2">
-                <div className="w-5 h-5 bg-blue-500 rounded-sm flex items-center justify-center">
-                  <div className="w-2 h-2 bg-white rounded-sm"></div>
+              <div className="flex items-center gap-2 pb-2 border-b border-border-primary">
+                <div className="w-4 h-4 bg-primary-base rounded-sm flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 bg-white rounded-sm"></div>
                 </div>
-                <Heading as="h3" variant="section-subheader" className="text-gray-700 font-semibold">
+                <Heading as="h3" variant="section-subheader" className="text-text-primary font-semibold text-sm">
                   {group.title}
                 </Heading>
+                <span className="text-xs text-text-muted">
+                  ({group.events.length} {group.events.length === 1 ? 'event' : 'events'})
+                </span>
               </div>
               
               {/* Group Events */}
-              <div className="space-y-4 ml-1 lg:ml-7">
+              <div className="space-y-2">
                 {group.events.map(event => (
-                  <div key={event.id} className="relative">
-                    <EventCard event={event} />
-                    {/* Action buttons */}
-                    <div className="absolute top-2 right-2 flex gap-2">
+                  <div key={event.id} className="relative group">
+                    <EventCard event={event} isCompact={true} />
+                    
+                    {/* Quick Action Buttons */}
+                    <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Button
+                        onClick={() => handleDuplicateEvent(event)}
+                        variant="outline"
+                        className="text-xs px-2 py-1 h-7 bg-white/90 backdrop-blur-sm border-border-primary hover:bg-bg-secondary"
+                      >
+                        Duplicate
+                      </Button>
                       <Button
                         onClick={() => onEditEvent(event)}
                         variant="primary"
-                        className="text-xs px-2 py-1"
+                        className="text-xs px-2 py-1 h-7"
                       >
                         Edit
                       </Button>
                       <Button
                         onClick={() => handleDeleteEvent(event.id)}
                         variant="danger"
-                        className="text-xs px-2 py-1"
+                        className="text-xs px-2 py-1 h-7"
                       >
                         Delete
                       </Button>
